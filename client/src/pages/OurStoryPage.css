@@ -1,0 +1,443 @@
+.our-story-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.our-story-hero {
+  position: relative;
+  min-height: 520px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+.our-story-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.43);
+}
+
+.our-story-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 90px 24px 20px;
+  text-align: center;
+}
+
+.our-story-hero-content h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 6vw, 64px);
+  font-weight: 400;
+  letter-spacing: 8px;
+  line-height: 1.2;
+}
+
+.our-story-content {
+  padding: 80px 24px;
+  background: #087783;
+  color: #fff;
+}
+
+.our-story-content-inner {
+  max-width: 850px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.our-story-eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+.our-story-content-inner h2 {
+  margin: 0 0 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 400;
+}
+
+.our-story-content-inner p {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+@media (max-width: 768px) {
+  .our-story-hero {
+    min-height: 450px;
+    height: 450px;
+    background-position: center;
+  }
+
+  .our-story-hero-content h1 {
+    font-size: 42px;
+    letter-spacing: 5px;
+  }
+
+  .our-story-content {
+    padding: 65px 22px;
+  }
+}
+/* Our Story Introduction */
+.our-story-introduction {
+  position: relative;
+  min-height: 438px;
+  padding: 100px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background-color: #087783;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09' stroke-width='1.5'%3E%3Cpath d='M-30 35 Q30 -10 80 30 T180 25 T280 40 T430 10'/%3E%3Cpath d='M-30 50 Q30 5 80 45 T180 40 T280 55 T430 25'/%3E%3Cpath d='M-30 65 Q30 20 80 60 T180 55 T280 70 T430 40'/%3E%3Cpath d='M-30 80 Q30 35 80 75 T180 70 T280 85 T430 55'/%3E%3Cpath d='M20 130 C50 90 100 100 110 140 S160 180 190 140 S250 100 280 140 S350 180 430 120'/%3E%3Cpath d='M20 145 C50 105 100 115 110 155 S160 195 190 155 S250 115 280 155 S350 195 430 135'/%3E%3Cpath d='M20 160 C50 120 100 130 110 170 S160 210 190 170 S250 130 280 170 S350 210 430 150'/%3E%3Cpath d='M-30 230 Q40 180 90 230 T190 225 T290 235 T430 210'/%3E%3Cpath d='M-30 245 Q40 195 90 245 T190 240 T290 250 T430 225'/%3E%3Cpath d='M-30 260 Q40 210 90 260 T190 255 T290 265 T430 240'/%3E%3Cpath d='M30 320 C60 280 110 290 120 330 S180 370 210 330 S270 290 300 330 S370 370 430 310'/%3E%3Cpath d='M30 335 C60 295 110 305 120 345 S180 385 210 345 S270 305 300 345 S370 385 430 325'/%3E%3Cpath d='M30 350 C60 310 110 320 120 360 S180 400 210 360 S270 320 300 360 S370 400 430 340'/%3E%3C/g%3E%3C/svg%3E");
+
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  background-position: center;
+  color: #f5f3ed;
+}
+
+.our-story-introduction-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.our-story-introduction-content h2 {
+  margin: 0 0 30px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 4.2vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.our-story-introduction-content p {
+  max-width: 850px;
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .our-story-introduction {
+    min-height: auto;
+    padding: 75px 22px;
+    background-size: 350px auto;
+  }
+
+  .our-story-introduction-content h2 {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .our-story-introduction-content p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+/* Our Story Image Gallery */
+.our-story-gallery {
+  width: 100%;
+  padding: 128px 24px 55px;
+  background-color: #faf9f6;
+}
+
+.our-story-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.our-story-gallery-item {
+  width: 100%;
+  height: 293px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.our-story-gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.our-story-gallery-item:hover img {
+  transform: scale(1.04);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .our-story-gallery {
+    padding: 85px 20px 45px;
+  }
+
+  .our-story-gallery-grid {
+    gap: 16px;
+  }
+
+  .our-story-gallery-item {
+    height: 230px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .our-story-gallery {
+    padding: 55px 18px 40px;
+  }
+
+  .our-story-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .our-story-gallery-item {
+    height: 260px;
+  }
+}
+/* Inspired by Nature Section */
+.inspired-nature-section {
+  width: 100%;
+  min-height: 438px;
+  padding: 110px 24px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #faf9f6;
+  color: #303436;
+}
+
+.inspired-nature-content {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.inspired-nature-content h2 {
+  margin: 0 0 32px;
+  color: #278391;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 4.2vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.inspired-nature-content p {
+  margin: 0 auto;
+  max-width: 840px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #45484a;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .inspired-nature-section {
+    min-height: auto;
+    padding: 80px 22px;
+  }
+
+  .inspired-nature-content h2 {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .inspired-nature-content p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+/* Built for Travelers Section */
+.built-for-travelers {
+  position: relative;
+  width: 100%;
+  min-height: 472px;
+  padding: 80px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center 55%;
+  background-repeat: no-repeat;
+  color: #fff;
+  overflow: hidden;
+}
+
+.built-for-travelers-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 16, 12, 0.48);
+}
+
+.built-for-travelers-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.built-for-travelers-content h2 {
+  margin: 0 0 34px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 4.2vw, 50px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.5px;
+  color: #f7f4ed;
+}
+
+.built-for-travelers-content p {
+  max-width: 800px;
+  margin: 0 auto 48px;
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.built-for-travelers-button {
+  display: inline-flex;
+  min-width: 163px;
+  min-height: 52px;
+  padding: 15px 28px;
+  align-items: center;
+  justify-content: center;
+  background: #258494;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  transition: background-color 0.3s ease;
+}
+
+.built-for-travelers-button:hover {
+  background: #176b78;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .built-for-travelers {
+    min-height: 440px;
+    padding: 70px 22px;
+    background-position: center;
+  }
+
+  .built-for-travelers-content h2 {
+    font-size: 38px;
+    line-height: 1.05;
+    margin-bottom: 26px;
+  }
+
+  .built-for-travelers-content p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+  }
+}
+/* A Story Still Being Written */
+.story-still-being-written {
+  position: relative;
+  width: 100%;
+  min-height: 485px;
+  padding: 105px 24px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #087783;
+  color: #f5f3ed;
+
+  /* Topographic contour pattern */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.09' stroke-width='1.5'%3E%3Cpath d='M-30 35 Q30 -10 80 30 T180 25 T280 40 T430 10'/%3E%3Cpath d='M-30 50 Q30 5 80 45 T180 40 T280 55 T430 25'/%3E%3Cpath d='M-30 65 Q30 20 80 60 T180 55 T280 70 T430 40'/%3E%3Cpath d='M20 130 C50 90 100 100 110 140 S160 180 190 140 S250 100 280 140 S350 180 430 120'/%3E%3Cpath d='M20 145 C50 105 100 115 110 155 S160 195 190 155 S250 115 280 155 S350 195 430 135'/%3E%3Cpath d='M20 160 C50 120 100 130 110 170 S160 210 190 170 S250 130 280 170 S350 210 430 150'/%3E%3Cpath d='M-30 230 Q40 180 90 230 T190 225 T290 235 T430 210'/%3E%3Cpath d='M-30 245 Q40 195 90 245 T190 240 T290 250 T430 225'/%3E%3Cpath d='M30 320 C60 280 110 290 120 330 S180 370 210 330 S270 290 300 330 S370 370 430 310'/%3E%3Cpath d='M30 335 C60 295 110 305 120 345 S180 385 210 345 S270 305 300 345 S370 385 430 325'/%3E%3C/g%3E%3C/svg%3E");
+
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  background-position: center;
+}
+
+.story-still-being-written-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.story-still-being-written-content h2 {
+  margin: 0 0 32px;
+  color: #f5f3ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(38px, 4.2vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.story-still-being-written-content p {
+  max-width: 850px;
+  margin: 0 auto 44px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.story-still-being-written-content h3 {
+  margin: 0;
+  color: #f5f3ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 2.7vw, 32px);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .story-still-being-written {
+    min-height: auto;
+    padding: 80px 22px;
+    background-size: 320px 320px;
+  }
+
+  .story-still-being-written-content h2 {
+    margin-bottom: 24px;
+    font-size: 36px;
+  }
+
+  .story-still-being-written-content p {
+    margin-bottom: 35px;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .story-still-being-written-content h3 {
+    font-size: 25px;
+  }
+}

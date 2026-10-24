@@ -1,0 +1,116 @@
+.dining-footer {
+  padding: 68px clamp(24px, 5.7vw, 74px) 28px;
+
+  background: #020405;
+  color: #8d9090;
+}
+
+.dining-footer-columns {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: clamp(36px, 7vw, 100px);
+
+  padding-bottom: 76px;
+}
+
+.dining-footer-brand {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #fff;
+  text-decoration: none;
+}
+
+.dining-footer-brand span {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 36px;
+  line-height: 0.95;
+}
+
+.dining-footer-brand small {
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.dining-footer p {
+  margin: 22px 0 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.dining-footer h2 {
+  margin: 0;
+
+  color: #079caf;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.dining-footer-contact p {
+  margin-top: 24px;
+}
+
+.dining-footer a:not(.dining-footer-brand) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.dining-footer a:not(.dining-footer-brand):hover {
+  color: #0aa2b5;
+}
+
+.dining-social-links {
+  display: flex;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.dining-social-links a {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #079caf;
+
+  color: #fff !important;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.dining-footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.dining-footer-bottom p {
+  margin: 0;
+}
+
+.dining-footer-bottom p + p {
+  margin-top: 6px;
+}
+
+@media (max-width: 760px) {
+  .dining-footer {
+    padding: 52px 24px 24px;
+  }
+
+  .dining-footer-columns {
+    grid-template-columns: 1fr;
+    gap: 38px;
+    padding-bottom: 42px;
+  }
+
+  .dining-footer p {
+    margin-top: 16px;
+  }
+}

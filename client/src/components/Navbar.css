@@ -1,0 +1,296 @@
+/* ========================================
+   ATALAYA NAVBAR
+======================================== */
+
+.hero-navbar {
+  position: fixed;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  width: 100%;
+  min-height: 88px;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+
+  padding: 25px 24px;
+  box-sizing: border-box;
+
+  background: transparent;
+  border-bottom: 1px solid transparent;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Dark background appears after scrolling */
+
+.hero-navbar.navbar-scrolled {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 2147483647 !important;
+
+  background: #101514;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================================
+   LOGO
+======================================== */
+
+.hero-logo {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.hero-logo-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 29px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  line-height: 1;
+}
+
+.hero-logo-subtitle {
+  margin-top: 7px;
+  padding-left: 4px;
+
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 4px;
+}
+
+/* ========================================
+   NAVIGATION LINKS
+======================================== */
+
+.hero-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(15px, 2vw, 30px);
+}
+
+.hero-navigation a {
+  position: relative;
+
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.3px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.hero-navigation a::after {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+
+  height: 1px;
+  background: #ffffff;
+
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.hero-navigation a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ========================================
+   PHONE NUMBER
+======================================== */
+
+.hero-phone {
+  flex-shrink: 0;
+
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ========================================
+   RESERVE BUTTON
+======================================== */
+
+.hero-reserve {
+  display: flex;
+  min-width: 132px;
+  min-height: 44px;
+  flex-shrink: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 20px;
+
+  background: #278494;
+  color: #08262a;
+
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-decoration: none;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.hero-reserve:hover {
+  background: #ffffff;
+  color: #153d43;
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1100px) {
+  .hero-navbar {
+    gap: 16px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .hero-logo-name {
+    font-size: 24px;
+    letter-spacing: 5px;
+  }
+
+  .hero-navigation {
+    gap: 13px;
+  }
+
+  .hero-navigation a {
+    font-size: 9px;
+    letter-spacing: 0.8px;
+  }
+
+  .hero-phone {
+    display: none;
+  }
+
+  .hero-reserve {
+    min-width: 110px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+  .hero-navbar {
+    min-height: 80px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 16px;
+  }
+
+  .hero-logo-name {
+    font-size: 22px;
+    letter-spacing: 5px;
+  }
+
+  .hero-logo-subtitle {
+    font-size: 8px;
+    letter-spacing: 4px;
+  }
+
+  .hero-navigation {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+
+    padding: 8px 22px 16px;
+
+    background: rgba(16, 21, 20, 0.98);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(-8px);
+
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  /* Display mobile links when the navbar is scrolled */
+
+  .hero-navbar.navbar-scrolled .hero-navigation {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .hero-navigation a {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 10px;
+  }
+
+  .hero-navigation a:last-child {
+    border-bottom: none;
+  }
+
+  .hero-reserve {
+    min-width: 95px;
+    min-height: 38px;
+    margin-left: auto;
+    padding: 0 10px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 380px) {
+  .hero-navbar {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .hero-logo-name {
+    font-size: 19px;
+    letter-spacing: 4px;
+  }
+
+  .hero-reserve {
+    min-width: 85px;
+    padding: 0 8px;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+  }
+}

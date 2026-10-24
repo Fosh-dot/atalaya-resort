@@ -1,0 +1,197 @@
+/* =========================================
+   PICTURESQUE MOMENTS
+========================================= */
+
+.picturesque-section {
+  width: 100%;
+  padding: 70px 0 75px;
+  overflow: hidden;
+  background-color: #faf9f6;
+  background-image:
+    radial-gradient(
+      ellipse at 15% 25%,
+      rgba(190, 185, 173, 0.09) 0,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 80% 65%,
+      rgba(190, 185, 173, 0.08) 0,
+      transparent 40%
+    );
+}
+
+/* Section heading */
+.picturesque-heading {
+  padding: 0 20px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.picturesque-heading h2 {
+  margin: 0;
+  color: #287e89;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+/* Gallery container */
+.picturesque-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Each animated row */
+.picturesque-row {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Moving track */
+.picturesque-track {
+  display: flex;
+  width: max-content;
+  gap: 12px;
+  will-change: transform;
+}
+
+/* Image sizing */
+.picturesque-image {
+  flex: 0 0 282px;
+  width: 282px;
+  height: 213px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.picturesque-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Row one: right to left */
+.picturesque-row-left .picturesque-track {
+  animation: picturesqueMoveLeft 45s linear infinite;
+}
+
+/* Row two: left to right */
+.picturesque-row-right .picturesque-track {
+  transform: translateX(-50%);
+  animation: picturesqueMoveRight 45s linear infinite;
+}
+
+/*
+  The track contains two identical sets of seven images.
+  Moving by half the track width creates a seamless loop.
+*/
+@keyframes picturesqueMoveLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes picturesqueMoveRight {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Pause on hover for desktop */
+@media (hover: hover) and (pointer: fine) {
+  .picturesque-gallery:hover .picturesque-track {
+    animation-play-state: paused;
+  }
+
+  .picturesque-image:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .picturesque-section {
+    padding: 85px 0;
+  }
+
+  .picturesque-heading {
+    margin-bottom: 45px;
+  }
+
+  .picturesque-image {
+    flex-basis: 250px;
+    width: 250px;
+    height: 190px;
+  }
+
+  .picturesque-track {
+    gap: 10px;
+  }
+
+  .picturesque-gallery {
+    gap: 10px;
+  }
+
+  .picturesque-row-left .picturesque-track,
+  .picturesque-row-right .picturesque-track {
+    animation-duration: 38s;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .picturesque-section {
+    padding: 65px 0;
+  }
+
+  .picturesque-heading {
+    margin-bottom: 35px;
+  }
+
+  .picturesque-heading h2 {
+    font-size: 40px;
+  }
+
+  .picturesque-image {
+    flex-basis: 210px;
+    width: 210px;
+    height: 165px;
+  }
+
+  .picturesque-track {
+    gap: 8px;
+  }
+
+  .picturesque-gallery {
+    gap: 8px;
+  }
+
+  .picturesque-row-left .picturesque-track,
+  .picturesque-row-right .picturesque-track {
+    animation-duration: 32s;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .picturesque-row-left .picturesque-track,
+  .picturesque-row-right .picturesque-track {
+    animation: none;
+    transform: none;
+  }
+}

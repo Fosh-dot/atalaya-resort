@@ -1,0 +1,1005 @@
+.dining-page {
+  min-height: 100vh;
+  background: #f8f7f4;
+  color: #171b1c;
+}
+
+.dining-hero {
+  position: relative;
+  display: flex;
+  min-height: 585px;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.dining-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 14, 0.48) 0%,
+    rgba(8, 12, 14, 0.58) 55%,
+    rgba(8, 12, 14, 0.82) 100%
+  );
+}
+
+.dining-hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(1000px, calc(100% - 40px));
+  margin-top: 88px;
+  padding: 0 0 64px;
+  text-align: center;
+}
+
+.dining-location {
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+
+.dining-hero-content h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(48px, 7.4vw, 90px);
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+}
+
+.dining-hero-description {
+  margin: 36px auto 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(15px, 1.7vw, 20px);
+  line-height: 1.65;
+}
+
+.dining-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.dining-button {
+  display: inline-flex;
+  min-width: 200px;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 26px;
+  border: 1px solid transparent;
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.dining-button-primary {
+  background: #0d9db1;
+  color: #061a1d;
+}
+
+.dining-button-primary:hover {
+  background: #fff;
+  color: #111;
+}
+
+.dining-button-outline {
+  border-color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  color: #fff;
+}
+
+.dining-button-outline:hover {
+  background: #fff;
+  color: #111;
+}
+
+/* ========================================
+   DINING INTRODUCTION
+======================================== */
+
+.dining-introduction {
+  position: relative;
+  overflow: hidden;
+  padding: 125px 24px 100px;
+  background-color: #e9e3e1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b9afad' stroke-opacity='.32' stroke-width='1'%3E%3Cpath d='M-20 40 C20 0 50 80 90 35 S160 5 190 45 S250 80 270 25'/%3E%3Cpath d='M-20 50 C20 10 50 90 90 45 S160 15 190 55 S250 90 270 35'/%3E%3Cpath d='M-20 60 C20 20 50 100 90 55 S160 25 190 65 S250 100 270 45'/%3E%3Cpath d='M20 150 C45 110 85 120 100 150 S145 200 180 160 S220 130 250 160'/%3E%3Cpath d='M20 160 C45 120 85 130 100 160 S145 210 180 170 S220 140 250 170'/%3E%3Cpath d='M20 170 C45 130 85 140 100 170 S145 220 180 180 S220 150 250 180'/%3E%3Cpath d='M45 35 C60 15 85 20 95 40 S80 70 65 55 S55 40 70 35'/%3E%3Cpath d='M145 95 C160 75 190 80 200 100 S185 130 165 115 S155 100 175 95'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.dining-introduction-content {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dining-introduction-content h2 {
+  max-width: 800px;
+  margin: 0 auto 28px;
+  color: #111516;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 3.1vw, 42px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.dining-introduction-content > p {
+  max-width: 800px;
+  margin: 0 auto 18px;
+  color: #777577;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.dining-introduction-content > p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Three food and cocktail images */
+.dining-food-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  margin: 38px auto 0;
+}
+
+.dining-food-gallery img {
+  display: block;
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 16px;
+}
+
+@media (max-width: 900px) {
+  .dining-food-gallery {
+    gap: 16px;
+  }
+
+  .dining-food-gallery img {
+    height: 230px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .dining-hero {
+    min-height: 650px;
+    align-items: center;
+  }
+
+  .dining-hero-content {
+    margin-top: 80px;
+  }
+
+  .dining-location {
+    font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .dining-hero-content h1 {
+    font-size: clamp(42px, 11vw, 62px);
+    letter-spacing: -0.5px;
+  }
+
+  .dining-hero-description {
+    margin-top: 25px;
+    font-size: 15px;
+  }
+
+  .dining-desktop-break {
+    display: none;
+  }
+
+  .dining-hero-actions {
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .dining-button {
+    min-width: 175px;
+    min-height: 52px;
+    font-size: 10px;
+  }
+  .dining-introduction {
+    padding: 75px 24px;
+  }
+
+  .dining-introduction-content h2 {
+    font-size: 30px;
+    line-height: 1.25;
+  }
+
+  .dining-introduction-content > p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .dining-food-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 30px;
+  }
+
+  .dining-food-gallery img {
+    height: 280px;
+    border-radius: 12px;
+  }
+}
+
+/* ========================================
+   ECO FOOD PROJECT / FARM SECTION
+======================================== */
+
+.dining-farm-section {
+  padding: 100px 5.5% 125px;
+  background: #ffffff;
+}
+
+.dining-farm-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 72px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dining-farm-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+}
+
+.dining-farm-image img {
+  display: block;
+  width: 100%;
+  height: 620px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.dining-farm-text {
+  padding-top: 4px;
+}
+
+.dining-farm-text .dining-section-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #087e91;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.dining-farm-text h2 {
+  margin: 0;
+  color: #111516;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(38px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.dining-farm-text > p {
+  margin: 0 0 24px;
+  color: #818184;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.dining-farm-button {
+  display: inline-flex;
+  min-height: 62px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  padding: 0 35px;
+  border: 2px solid #171b1c;
+  border-radius: 40px;
+  background: #927e78;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.dining-farm-button:hover {
+  background: #171b1c;
+  color: #ffffff;
+}
+
+@media (max-width: 800px) {
+  .dining-farm-section {
+    padding: 80px 24px;
+  }
+
+  .dining-farm-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .dining-farm-image img {
+    height: 460px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dining-farm-section {
+    padding: 65px 20px;
+  }
+
+  .dining-farm-image img {
+    height: 350px;
+  }
+
+  .dining-farm-text h2 {
+    font-size: 36px;
+  }
+
+  .dining-farm-text > p {
+    font-size: 14px;
+  }
+}
+
+/* ========================================
+   OUR TEAM SECTION
+======================================== */
+
+.dining-team-section {
+  padding: 120px 5.5%;
+  background: #ffffff;
+}
+
+.dining-team-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 70px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dining-team-text {
+  max-width: 540px;
+}
+
+.dining-team-text .dining-section-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #087e91;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.dining-team-text h2 {
+  margin: 0;
+  color: #111516;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(38px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.dining-team-divider {
+  width: 60px;
+  height: 2px;
+  margin: 32px 0 26px;
+  background: #079caf;
+}
+
+.dining-team-text p {
+  margin: 0 0 24px;
+  color: #818184;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.dining-team-text p:last-child {
+  margin-bottom: 0;
+}
+
+.dining-team-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.dining-team-image img {
+  display: block;
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Team section: tablet and mobile */
+@media (max-width: 800px) {
+  .dining-team-section {
+    padding: 80px 24px;
+  }
+
+  .dining-team-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .dining-team-text {
+    max-width: 100%;
+  }
+
+  .dining-team-text h2 {
+    font-size: 40px;
+  }
+
+  .dining-team-image img {
+    height: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dining-team-section {
+    padding: 65px 20px;
+  }
+
+  .dining-team-text h2 {
+    font-size: 36px;
+  }
+
+  .dining-team-text p {
+    font-size: 14px;
+  }
+
+  .dining-team-image img {
+    height: 350px;
+  }
+}
+
+/* ========================================
+   MOMENTS AT ATALAYA GALLERY
+======================================== */
+
+.dining-moments-section {
+  position: relative;
+  overflow: hidden;
+  padding: 125px 0 100px;
+  background-color: #e9e3e1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b9afad' stroke-opacity='.32' stroke-width='1'%3E%3Cpath d='M-20 40 C20 0 50 80 90 35 S160 5 190 45 S250 80 270 25'/%3E%3Cpath d='M-20 50 C20 10 50 90 90 45 S160 15 190 55 S250 90 270 35'/%3E%3Cpath d='M-20 60 C20 20 50 100 90 55 S160 25 190 65 S250 100 270 45'/%3E%3Cpath d='M20 150 C45 110 85 120 100 150 S145 200 180 160 S220 130 250 160'/%3E%3Cpath d='M20 160 C45 120 85 130 100 160 S145 210 180 170 S220 140 250 170'/%3E%3Cpath d='M45 35 C60 15 85 20 95 40 S80 70 65 55 S55 40 70 35'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.dining-moments-heading {
+  width: min(850px, calc(100% - 40px));
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dining-moments-instagram {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #087e91;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.dining-moments-instagram:hover {
+  opacity: 0.7;
+}
+
+.dining-moments-heading h2 {
+  margin: 0;
+  color: #111516;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.dining-moments-heading p {
+  max-width: 780px;
+  margin: 14px auto 0;
+  color: #92817c;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* Horizontal image gallery */
+
+.dining-moments-gallery {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-top: 64px;
+  padding: 0 0 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dining-moments-gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.dining-moments-card {
+  flex: 0 0 300px;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 17px;
+  scroll-snap-align: start;
+  background: #d5ceca;
+}
+
+.dining-moments-card:first-child {
+  margin-left: -120px;
+}
+
+.dining-moments-card:last-child {
+  margin-right: 30px;
+}
+
+.dining-moments-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.dining-moments-card:hover img {
+  transform: scale(1.04);
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .dining-moments-section {
+    padding-top: 100px;
+    padding-bottom: 80px;
+  }
+
+  .dining-moments-gallery {
+    gap: 16px;
+    margin-top: 45px;
+  }
+
+  .dining-moments-card {
+    flex-basis: 270px;
+    height: 320px;
+  }
+
+  .dining-moments-card:first-child {
+    margin-left: -90px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .dining-moments-section {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
+  .dining-moments-heading {
+    width: calc(100% - 36px);
+  }
+
+  .dining-moments-instagram {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .dining-moments-heading h2 {
+    font-size: clamp(38px, 10vw, 48px);
+  }
+
+  .dining-moments-heading p {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .dining-moments-gallery {
+    gap: 14px;
+    margin-top: 35px;
+  }
+
+  .dining-moments-card {
+    flex-basis: 78vw;
+    height: 300px;
+    border-radius: 14px;
+  }
+
+  .dining-moments-card:first-child {
+    margin-left: -35px;
+  }
+
+  .dining-moments-card:last-child {
+    margin-right: 18px;
+  }
+}
+
+/* ========================================
+   UPDATED MOMENTS AT ATALAYA GALLERY
+   TWO CONTINUOUSLY ANIMATED GALLERY ROWS
+======================================== */
+
+.dining-moments-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 110px 0 85px;
+  background-color: #e9e3e1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b9afad' stroke-opacity='.32' stroke-width='1'%3E%3Cpath d='M-20 40 C20 0 50 80 90 35 S160 5 190 45 S250 80 270 25'/%3E%3Cpath d='M-20 50 C20 10 50 90 90 45 S160 15 190 55 S250 90 270 35'/%3E%3Cpath d='M-20 60 C20 20 50 100 90 55 S160 25 190 65 S250 100 270 45'/%3E%3Cpath d='M20 150 C45 110 85 120 100 150 S145 200 180 160 S220 130 250 160'/%3E%3Cpath d='M20 160 C45 120 85 130 100 160 S145 210 180 170 S220 140 250 170'/%3E%3Cpath d='M45 35 C60 15 85 20 95 40 S80 70 65 55 S55 40 70 35'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.dining-moments-heading {
+  position: relative;
+  z-index: 2;
+  width: min(850px, calc(100% - 40px));
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.dining-moments-instagram {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #087e91;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.dining-moments-instagram:hover {
+  opacity: 0.65;
+}
+
+.dining-moments-heading h2 {
+  margin: 0;
+  color: #171b1c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.dining-moments-heading p {
+  max-width: 760px;
+  margin: 15px auto 0;
+  color: #92817c;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.dining-moments-track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  margin: 0 0 22px;
+  will-change: transform;
+}
+
+.dining-moments-row {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 20px;
+}
+
+.dining-moments-track-left {
+  animation: dining-moments-move-left 45s linear infinite;
+}
+
+.dining-moments-track-right {
+  animation: dining-moments-move-right 45s linear infinite;
+}
+
+.dining-moments-track:hover {
+  animation-play-state: paused;
+}
+
+.dining-moments-card {
+  position: relative;
+  flex: 0 0 300px;
+  width: 300px;
+  height: 350px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #d5ceca;
+  isolation: isolate;
+}
+
+.dining-moments-card:first-child,
+.dining-moments-card:last-child {
+  margin: 0;
+}
+
+.dining-moments-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.55s ease;
+}
+
+.dining-moments-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(12, 18, 18, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.dining-moments-overlay span {
+  color: #ffffff;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dining-moments-card:hover .dining-moments-overlay {
+    opacity: 1;
+  }
+
+  .dining-moments-card:hover img {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes dining-moments-move-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes dining-moments-move-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .dining-moments-section {
+    padding: 90px 0 70px;
+  }
+
+  .dining-moments-heading {
+    margin-bottom: 45px;
+  }
+
+  .dining-moments-track {
+    margin-bottom: 16px;
+  }
+
+  .dining-moments-row {
+    gap: 16px;
+  }
+
+  .dining-moments-card {
+    flex-basis: 270px;
+    width: 270px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dining-moments-section {
+    padding: 75px 0 50px;
+  }
+
+  .dining-moments-heading {
+    width: calc(100% - 36px);
+    margin-bottom: 35px;
+  }
+
+  .dining-moments-instagram {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+
+  .dining-moments-heading h2 {
+    font-size: clamp(38px, 10vw, 48px);
+  }
+
+  .dining-moments-heading p {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .dining-moments-track {
+    margin-bottom: 14px;
+  }
+
+  .dining-moments-row {
+    gap: 14px;
+  }
+
+  .dining-moments-card {
+    flex-basis: 76vw;
+    width: 76vw;
+    height: 290px;
+    border-radius: 14px;
+  }
+
+  .dining-moments-overlay span {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dining-moments-track-left,
+  .dining-moments-track-right {
+    animation: none;
+  }
+}
+
+/* ========================================
+   GOOGLE REVIEWS — FINAL SECTION BEFORE FOOTER
+======================================== */
+
+.dining-reviews-section {
+  position: relative;
+  width: 100%;
+  padding: 88px 24px 96px;
+  overflow: hidden;
+  background: #f8f7f4;
+  color: #171b1c;
+  text-align: center;
+}
+
+.dining-reviews-content {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.dining-reviews-eyebrow {
+  margin: 0 0 20px;
+  color: #087e91;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  line-height: 1.6;
+}
+
+.dining-reviews-stars {
+  margin: 0 0 14px;
+  color: #d5a33d;
+  font-size: 31px;
+  letter-spacing: 7px;
+  line-height: 1.2;
+}
+
+.dining-reviews-content h2 {
+  margin: 0;
+  color: #171b1c;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 5vw, 60px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.dining-reviews-content h2 span {
+  color: #777577;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.dining-reviews-description {
+  max-width: 650px;
+  margin: 22px auto 0;
+  color: #777577;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.9;
+}
+
+@media (max-width: 768px) {
+  .dining-reviews-section {
+    padding: 74px 24px 80px;
+  }
+
+  .dining-reviews-eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .dining-reviews-stars {
+    font-size: 28px;
+    letter-spacing: 5px;
+  }
+
+  .dining-reviews-content h2 span {
+    font-size: 14px;
+  }
+
+  .dining-reviews-description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dining-reviews-section {
+    padding: 64px 20px 70px;
+  }
+
+  .dining-reviews-eyebrow {
+    margin-bottom: 17px;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+  }
+
+  .dining-reviews-stars {
+    margin-bottom: 12px;
+    font-size: 25px;
+    letter-spacing: 4px;
+  }
+
+  .dining-reviews-content h2 {
+    font-size: 43px;
+  }
+
+  .dining-reviews-content h2 span {
+    font-size: 12px;
+  }
+
+  .dining-reviews-description {
+    margin-top: 17px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+}

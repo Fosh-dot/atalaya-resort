@@ -1,0 +1,13 @@
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.home-page {
+  position: relative;
+}
+
+.home-page .hero-navbar {
+  z-index: 99999;
+}

@@ -1,0 +1,145 @@
+/* =========================================
+   YOUR ESCAPE AWAITS
+========================================= */
+
+.escape-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 480px;
+  padding: 90px 24px;
+  background-color: #c9bdbd;
+  color: #111416;
+  text-align: center;
+}
+
+.escape-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.escape-content h2 {
+  margin: 0 0 32px;
+  color: #111416;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(48px, 5.5vw, 68px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.escape-description {
+  margin-bottom: 48px;
+}
+
+.escape-description p {
+  margin: 0;
+  color: #514b4b;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.escape-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.escape-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 30px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.escape-button-primary {
+  min-width: 202px;
+  border: 1px solid #287e89;
+  background-color: #287e89;
+  color: #ffffff;
+}
+
+.escape-button-primary:hover {
+  border-color: #206873;
+  background-color: #206873;
+}
+
+.escape-button-secondary {
+  min-width: 233px;
+  border: 1px solid #514b4b;
+  background-color: transparent;
+  color: #383434;
+}
+
+.escape-button-secondary:hover {
+  border-color: #287e89;
+  background-color: #287e89;
+  color: #ffffff;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .escape-section {
+    min-height: 430px;
+    padding: 80px 24px;
+  }
+
+  .escape-content h2 {
+    font-size: 56px;
+  }
+
+  .escape-description {
+    margin-bottom: 38px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .escape-section {
+    min-height: 400px;
+    padding: 70px 20px;
+  }
+
+  .escape-content h2 {
+    margin-bottom: 25px;
+    font-size: 43px;
+    letter-spacing: -0.8px;
+  }
+
+  .escape-description {
+    margin-bottom: 32px;
+  }
+
+  .escape-description p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .escape-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .escape-button {
+    width: 100%;
+    max-width: 300px;
+    min-height: 52px;
+    padding: 0 16px;
+  }
+}

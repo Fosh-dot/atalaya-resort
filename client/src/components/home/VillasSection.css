@@ -1,0 +1,440 @@
+.villas-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0 75px;
+  background-color: #222424;
+  color: #e8eeee;
+}
+
+/* Heading and VIEW button */
+.villas-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 110px 22px 65px;
+}
+
+.villas-heading-row h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(44px, 4.2vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.villas-view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 108px;
+  height: 55px;
+  flex-shrink: 0;
+  border: 1px solid rgba(235, 242, 242, 0.8);
+  color: #e8eeee;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.villas-view-button:hover {
+  background-color: #287e89;
+  border-color: #287e89;
+}
+
+/* Horizontal room slider */
+.villas-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.villas-slider {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 0 10px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.villas-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual room cards */
+.villa-card {
+  flex: 0 0 26.5%;
+  min-width: 260px;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.villa-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 390px;
+  overflow: hidden;
+  background-color: #343636;
+}
+
+.villa-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.villa-card:hover .villa-image {
+  transform: scale(1.025);
+}
+
+/* Individual room photo navigation */
+.villa-photo-arrow {
+  position: absolute;
+  top: 54%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 29px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(70, 70, 70, 0.5);
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color 0.25s ease;
+}
+
+.villa-photo-arrow:hover {
+  background-color: rgba(40, 126, 137, 0.9);
+}
+
+.villa-photo-arrow-left {
+  left: 5px;
+}
+
+.villa-photo-arrow-right {
+  right: 5px;
+}
+
+/* View all photos button */
+.villa-all-photos {
+  position: absolute;
+  left: 9px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgba(36, 36, 36, 0.78);
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.villa-all-photos:hover {
+  background-color: #287e89;
+}
+
+.villa-all-photos span {
+  font-size: 13px;
+}
+
+/* Room details */
+.villa-details {
+  padding: 18px 0 0;
+}
+
+.villa-capacity {
+  margin: 0 0 7px;
+  color: #a6aaaa;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.villa-details h3 {
+  margin: 0;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(24px, 2.1vw, 30px);
+  font-weight: 400;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+/* Room slider arrows */
+.villas-slider-arrow {
+  position: absolute;
+  top: 45%;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(45, 45, 45, 0.75);
+  color: #ffffff;
+  font-size: 28px;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color 0.25s ease;
+}
+
+.villas-slider-arrow:hover {
+  background: #287e89;
+}
+
+.villas-slider-arrow-left {
+  left: 8px;
+}
+
+.villas-slider-arrow-right {
+  right: 8px;
+}
+
+/* =========================================
+   FULL-SCREEN PHOTO GALLERY
+========================================= */
+
+.villa-gallery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  padding: 65px 70px;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+/* Full-size gallery image */
+.villa-gallery-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  max-height: calc(100vh - 130px);
+  max-height: calc(100dvh - 130px);
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+}
+
+/* Close button */
+.villa-gallery-close {
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+
+.villa-gallery-close:hover {
+  opacity: 0.65;
+}
+
+/* Previous and next photo buttons */
+.villa-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.villa-gallery-arrow:hover {
+  background-color: #287e89;
+  border-color: #287e89;
+}
+
+.villa-gallery-arrow-left {
+  left: 24px;
+}
+
+.villa-gallery-arrow-right {
+  right: 24px;
+}
+
+/* Photo counter */
+.villa-gallery-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  transform: translateX(-50%);
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .villas-heading-row {
+    padding: 75px 20px 45px;
+  }
+
+  .villa-card {
+    flex-basis: 42%;
+  }
+
+  .villa-image-wrapper {
+    height: 350px;
+  }
+
+  .villa-gallery-overlay {
+    padding: 60px 55px;
+  }
+
+  .villa-gallery-image {
+    max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
+  }
+
+  .villa-gallery-arrow-left {
+    left: 12px;
+  }
+
+  .villa-gallery-arrow-right {
+    right: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .villas-heading-row {
+    padding: 60px 18px 35px;
+  }
+
+  .villas-heading-row h2 {
+    font-size: 39px;
+  }
+
+  .villas-view-button {
+    width: 80px;
+    height: 45px;
+  }
+
+  .villas-slider {
+    gap: 14px;
+  }
+
+  .villa-card {
+    flex-basis: 82%;
+    min-width: 0;
+  }
+
+  .villa-image-wrapper {
+    height: 370px;
+  }
+
+  .villa-details h3 {
+    font-size: 27px;
+  }
+
+  /* Full-screen gallery on mobile */
+  .villa-gallery-overlay {
+    padding: 60px 8px;
+  }
+
+  .villa-gallery-image {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 120px);
+    max-height: calc(100dvh - 120px);
+    object-fit: contain;
+  }
+
+  .villa-gallery-close {
+    top: 10px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+    font-size: 36px;
+  }
+
+  .villa-gallery-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 25px;
+  }
+
+  .villa-gallery-arrow-left {
+    left: 8px;
+  }
+
+  .villa-gallery-arrow-right {
+    right: 8px;
+  }
+
+  .villa-gallery-counter {
+    bottom: 12px;
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}

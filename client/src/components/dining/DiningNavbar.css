@@ -1,0 +1,137 @@
+.dining-navbar {
+  position: fixed;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  width: 100%;
+  min-height: 78px;
+
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 17px clamp(24px, 6.5vw, 84px);
+  box-sizing: border-box;
+
+  background: transparent;
+  border-bottom: 1px solid transparent;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.dining-navbar.dining-navbar-scrolled {
+  background: #101514;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16);
+}
+
+.dining-brand {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+
+  color: #fff;
+  text-decoration: none;
+}
+
+.dining-brand-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 0.95;
+}
+
+.dining-brand-subtitle {
+  margin-top: 5px;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.dining-navigation {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3.2vw, 42px);
+}
+
+.dining-navigation a {
+  position: relative;
+  padding: 8px 0;
+
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: color 0.25s ease;
+}
+
+.dining-navigation a:hover,
+.dining-navigation a.active {
+  color: #079caf;
+}
+
+.dining-navigation a::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 1px;
+  background: #079caf;
+
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform 0.25s ease;
+}
+
+.dining-navigation a:hover::after,
+.dining-navigation a.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 700px) {
+  .dining-navbar {
+    min-height: 76px;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .dining-brand-name {
+    font-size: 24px;
+  }
+
+  .dining-brand-subtitle {
+    font-size: 8px;
+  }
+
+  .dining-navigation {
+    gap: clamp(10px, 3vw, 20px);
+  }
+
+  .dining-navigation a {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dining-navbar {
+    align-items: flex-start;
+  }
+
+  .dining-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

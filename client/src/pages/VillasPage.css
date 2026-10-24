@@ -1,0 +1,913 @@
+/* ========================================
+   VILLAS PAGE
+======================================== */
+
+.villas-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #faf9f6;
+  color: #253536;
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.villas-page-hero {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  height: 90svh;
+  min-height: 520px;
+  max-height: 760px;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  background-color: #101514;
+  background-image: url("../assets/images/accommodations-hero.webp");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
+}
+
+.villas-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+}
+
+.villas-page-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 900px;
+  padding: 60px 24px 0;
+  text-align: center;
+}
+
+.villas-page-hero-content h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(48px, 6.2vw, 76px);
+  font-weight: 400;
+  letter-spacing: 5px;
+  line-height: 1.15;
+}
+
+.villas-page-hero-content p {
+  max-width: 720px;
+  margin: 30px auto 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* ========================================
+   CHECK DATES & AVAILABILITY
+======================================== */
+
+.availability-section {
+  display: flex;
+  width: 100%;
+  min-height: 437px;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  background-color: #faf9f6;
+  background-image:
+    radial-gradient(
+      ellipse at 15% 25%,
+      rgba(190, 185, 173, 0.09) 0,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 80% 65%,
+      rgba(190, 185, 173, 0.08) 0,
+      transparent 40%
+    );
+}
+
+.availability-card {
+  display: flex;
+  width: 100%;
+  max-width: 848px;
+  min-height: 248px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  border-radius: 8px;
+  background: #c9bdbc;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.availability-card h2 {
+  margin: 0;
+  color: #171919;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 3vw, 36px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.availability-card p {
+  margin: 14px 0 30px;
+  color: #414747;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.availability-book-button {
+  display: flex;
+  min-width: 157px;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: 1px solid #278494;
+  background: #278494;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.availability-book-button:hover {
+  background: #ffffff;
+  color: #278494;
+}
+
+/* ========================================
+   ACCOMMODATION HIGHLIGHTS
+   Three lounge images
+======================================== */
+
+.accommodation-highlights {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: hidden;
+  padding: 125px 24px 105px;
+  background-color: #087080;
+  color: #ffffff;
+}
+
+.accommodation-highlights::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='260' viewBox='0 0 300 260'%3E%3Cg fill='none' stroke='%23b5e3df' stroke-width='1.2'%3E%3Cpath d='M-30 30 C10 -10 40 60 75 25 S135 -10 160 35 S210 70 245 25 S300 0 330 35'/%3E%3Cpath d='M-30 42 C10 2 40 72 75 37 S135 2 160 47 S210 82 245 37 S300 12 330 47'/%3E%3Cpath d='M-20 105 C20 65 45 135 85 100 S140 65 165 110 S220 145 250 100 S305 75 325 110'/%3E%3Cpath d='M-20 117 C20 77 45 147 85 112 S140 77 165 122 S220 157 250 112 S305 87 325 122'/%3E%3Cpath d='M-20 190 C15 150 55 220 90 185 S145 150 175 195 S225 230 260 185 S305 160 325 195'/%3E%3Cpath d='M-20 202 C15 162 55 232 90 197 S145 162 175 207 S225 242 260 197 S305 172 325 207'/%3E%3Cellipse cx='130' cy='145' rx='26' ry='15' transform='rotate(-25 130 145)'/%3E%3Cellipse cx='130' cy='145' rx='17' ry='9' transform='rotate(-25 130 145)'/%3Cellipse cx='265' cy='70' rx='23' ry='13' transform='rotate(25 265 70)'/%3Cellipse cx='265' cy='70' rx='14' ry='7' transform='rotate(25 265 70)'/%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 260px;
+  pointer-events: none;
+}
+
+.accommodation-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.accommodation-highlight {
+  min-width: 0;
+  text-align: center;
+}
+
+.accommodation-highlight-image-wrapper {
+  width: 100%;
+  height: 365px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.accommodation-highlight-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.65s ease;
+}
+
+.accommodation-highlight:hover .accommodation-highlight-image {
+  transform: scale(1.035);
+}
+
+.accommodation-highlight-content {
+  padding: 0 2px;
+}
+
+.accommodation-highlight-content h2 {
+  display: flex;
+  max-width: 370px;
+  min-height: 76px;
+  align-items: center;
+  justify-content: center;
+  margin: 53px auto 23px;
+  color: #f7f2e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(27px, 2.6vw, 34px);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.accommodation-highlight-content p {
+  max-width: 390px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* ========================================
+   VILLAS ROOM DETAILS
+   Three cards in row one, one in row two
+======================================== */
+
+.villas-room-details-section {
+  width: 100%;
+  padding: 65px 5.5%;
+  overflow: hidden;
+  background-color: #222424;
+  color: #e3e9e9;
+}
+
+.villas-room-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 55px 24px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.villas-room-details-grid .room-details-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+.villas-room-name {
+  margin: 0 0 20px;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(25px, 2.4vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.villas-room-details-grid .room-details-description {
+  flex-grow: 0;
+}
+
+.villas-room-details-grid .room-details-description p {
+  margin: 0 0 18px;
+  color: #b5b7b7;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.villas-room-details-grid .room-details-amenities {
+  margin: 0 0 25px;
+  color: #999d9d;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.villas-room-details-grid .room-details-booking {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.villas-room-details-grid .room-details-booking h3 {
+  margin: 0;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.villas-room-details-grid .room-book-now {
+  flex-shrink: 0;
+  padding: 13px 20px;
+  border: 1px solid #287e89;
+  background-color: #287e89;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.villas-room-details-grid .room-book-now:hover {
+  background-color: #205f67;
+}
+
+/* ========================================
+   BOTTOM CTA
+======================================== */
+
+.villas-page-cta {
+  padding: 90px 24px;
+  background: #086575;
+  color: #ffffff;
+  text-align: center;
+}
+
+.villas-page-cta > p {
+  margin-bottom: 18px;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.villas-page-cta h2 {
+  margin: 0 0 30px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 400;
+}
+
+.villas-page-cta-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  color: #ffffff;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.villas-page-cta-button:hover {
+  background: #ffffff;
+  color: #086575;
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+  .villas-page-hero {
+    height: 75vh;
+    height: 75svh;
+    min-height: 480px;
+  }
+
+  .villas-page-hero-content h1 {
+    font-size: clamp(42px, 7vw, 62px);
+    letter-spacing: 3px;
+  }
+
+  .villas-page-hero-content p {
+    max-width: 620px;
+    font-size: 14px;
+  }
+
+  .accommodation-highlights {
+    padding: 90px 20px 80px;
+  }
+
+  .accommodation-highlights-grid {
+    gap: 18px;
+  }
+
+  .accommodation-highlight-image-wrapper {
+    height: 290px;
+  }
+
+  .accommodation-highlight-content h2 {
+    min-height: 70px;
+    margin-top: 38px;
+    margin-bottom: 18px;
+    font-size: clamp(24px, 3vw, 29px);
+  }
+
+  .accommodation-highlight-content p {
+    font-size: 12px;
+  }
+
+  .villas-room-details-section {
+    padding: 55px 24px;
+  }
+
+  .villas-room-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 24px;
+  }
+
+  .villas-room-details-grid .room-details-booking {
+    flex-wrap: wrap;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+  .villas-page-hero {
+    height: 70vh;
+    height: 70svh;
+    min-height: 440px;
+    background-position: center center;
+  }
+
+  .villas-page-hero-content {
+    padding: 70px 20px 0;
+  }
+
+  .villas-page-hero-content h1 {
+    font-size: clamp(36px, 9vw, 48px);
+    letter-spacing: 2px;
+  }
+
+  .villas-page-hero-content p {
+    margin-top: 22px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .availability-section {
+    min-height: 350px;
+    padding: 45px 18px;
+  }
+
+  .availability-card {
+    min-height: 220px;
+    padding: 32px 20px;
+  }
+
+  .availability-card h2 {
+    font-size: 30px;
+  }
+
+  .availability-card p {
+    max-width: 280px;
+    margin: 14px 0 25px;
+    font-size: 12px;
+  }
+
+  .accommodation-highlights {
+    padding: 55px 20px 60px;
+  }
+
+  .accommodation-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+
+  .accommodation-highlight-image-wrapper {
+    height: auto;
+    aspect-ratio: 1 / 0.88;
+  }
+
+  .accommodation-highlight-content h2 {
+    min-height: 0;
+    margin: 25px auto 15px;
+    font-size: 30px;
+  }
+
+  .accommodation-highlight-content p {
+    max-width: 420px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .villas-room-details-section {
+    padding: 45px 20px;
+  }
+
+  .villas-room-details-grid {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .villas-room-name {
+    font-size: 29px;
+  }
+
+  .villas-room-details-grid .room-details-description p {
+    font-size: 13px;
+  }
+
+  .villas-room-details-grid .room-details-amenities {
+    margin-bottom: 20px;
+  }
+
+  .villas-page-cta {
+    padding: 70px 20px;
+  }
+}
+/* ROOM DETAILS SECTION */
+.villas-room-details-section {
+  width: 100%;
+  padding: 0 5% 70px;
+  overflow: hidden;
+  background-color: #222424;
+  color: #e3e9e9;
+}
+
+.villas-room-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 55px 25px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* EACH ROOM CARD */
+.villas-room-details-grid .room-details-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+}
+
+/* ROOM IMAGES */
+.villas-room-image-wrapper {
+  width: 100%;
+  height: 290px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  background-color: #303333;
+}
+
+.villas-room-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.villas-room-image-wrapper:hover .villas-room-image {
+  transform: scale(1.04);
+}
+
+/* ROOM NAME */
+.villas-room-name {
+  margin: 0 0 18px;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* DESCRIPTION */
+.villas-room-details-grid .room-details-description {
+  margin-bottom: 20px;
+}
+
+.villas-room-details-grid .room-details-description p {
+  margin: 0;
+  color: #b5b7b7;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* AMENITIES */
+.villas-room-details-grid .room-details-amenities {
+  margin: 0 0 30px;
+  color: #999d9d;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* PRICE AND BOOKING */
+.villas-room-details-grid .room-details-booking {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: auto;
+  padding-top: 15px;
+}
+
+.villas-room-details-grid .room-details-booking h3 {
+  margin: 0;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.villas-room-details-grid .room-book-now {
+  flex-shrink: 0;
+  padding: 13px 20px;
+  border: 1px solid #287e89;
+  background-color: #287e89;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.villas-room-details-grid .room-book-now:hover {
+  border-color: #205f67;
+  background-color: #205f67;
+}
+
+/* TABLET */
+@media (max-width: 1000px) {
+  .villas-room-details-section {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  .villas-room-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 45px 24px;
+  }
+
+  .villas-room-image-wrapper {
+    height: 270px;
+  }
+
+  .villas-room-name {
+    font-size: 27px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .villas-room-details-section {
+    padding: 0 20px 45px;
+  }
+
+  .villas-room-details-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .villas-room-image-wrapper {
+    height: 260px;
+    margin-bottom: 20px;
+  }
+
+  .villas-room-name {
+    font-size: 26px;
+  }
+
+  .villas-room-details-grid .room-details-description p {
+    font-size: 13px;
+  }
+
+  .villas-room-details-grid .room-details-amenities {
+    margin-bottom: 20px;
+  }
+}
+/* VILLAS & SUITES HEADING */
+
+.villas-room-details-heading {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 40px;
+  text-align: left;
+}
+
+.villas-room-details-heading h2 {
+  margin: 0 0 15px;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 3.5vw, 46px);
+  font-weight: 400;
+  letter-spacing: 3px;
+  line-height: 1.2;
+}
+
+.villas-room-details-heading p {
+  margin: 0;
+  color: #b5b7b7;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+/* ========================================
+   FINAL VILLAS & SUITES SPACING
+   Match the reference screenshot
+======================================== */
+
+.villas-room-details-section {
+  padding: 115px 5% 70px;
+}
+
+.villas-room-details-heading {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 62px;
+  text-align: left;
+}
+
+.villas-room-details-heading h2 {
+  margin: 0;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 4.5vw, 58px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.villas-room-details-heading p {
+  margin: 18px 0 0;
+  color: #b5b7b7;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+@media (max-width: 1000px) {
+  .villas-room-details-section {
+    padding: 85px 24px 55px;
+  }
+
+  .villas-room-details-heading {
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .villas-room-details-section {
+    padding: 60px 20px 45px;
+  }
+
+  .villas-room-details-heading {
+    margin-bottom: 35px;
+  }
+
+  .villas-room-details-heading h2 {
+    font-size: 39px;
+  }
+}
+
+/* =====================================================
+   FINAL REFERENCE-SCREENSHOT FIXES
+   Tall room photography + independent carousel arrows
+===================================================== */
+.villas-room-details-section {
+  background: #202424;
+}
+
+.villas-room-details-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.villas-room-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  background: #303333;
+}
+
+.villas-room-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.villas-image-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 4px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: rgba(18, 24, 24, 0.58);
+  color: #fff;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.villas-image-arrow:hover {
+  background: #fff;
+  color: #202424;
+}
+
+.villas-image-arrow-left {
+  left: 16px;
+}
+.villas-image-arrow-right {
+  right: 16px;
+}
+
+.villas-room-details-heading {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 62px;
+  text-align: left;
+}
+
+.villas-room-details-heading h2 {
+  margin: 0;
+  color: #e3e9e9;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(42px, 4.5vw, 58px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+@media (max-width: 1000px) {
+  .villas-room-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 45px 24px;
+  }
+
+  .villas-room-image-wrapper {
+    height: 440px;
+  }
+}
+
+@media (max-width: 600px) {
+  .villas-room-details-grid {
+    grid-template-columns: 1fr;
+  }
+  .villas-room-image-wrapper {
+    height: 430px;
+    margin-bottom: 20px;
+  }
+  .villas-image-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  .villas-room-details-heading {
+    margin-bottom: 35px;
+  }
+  .villas-room-details-heading h2 {
+    font-size: 39px;
+  }
+}

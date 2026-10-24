@@ -1,0 +1,347 @@
+/* Contact Page */
+.contact-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #faf9f6;
+}
+
+/* Hero */
+.contact-hero {
+  position: relative;
+  width: 100%;
+  height: 425px;
+  background-size: cover;
+  background-position: center 55%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.contact-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.contact-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* Contact Information Section */
+.contact-information {
+  width: 100%;
+  padding: 105px 24px 110px;
+  background-color: #faf9f6;
+  background-image:
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(220, 216, 204, 0.16),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(220, 216, 204, 0.13),
+      transparent 50%
+    );
+}
+
+.contact-information-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Centered Contact Content */
+.contact-information-left {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Main Heading */
+.contact-information-left h1 {
+  margin: 0 0 30px;
+  color: #171b1c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(52px, 5.5vw, 76px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -1.5px;
+}
+
+/* Description */
+.contact-information-description {
+  max-width: 500px;
+  margin: 0 auto 50px;
+  color: #45484a;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Reservations and Address */
+.contact-detail-group {
+  margin-bottom: 32px;
+}
+
+.contact-detail-group h2 {
+  margin: 0 0 14px;
+  color: #278391;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.contact-detail-group p,
+.contact-detail-group a {
+  display: block;
+  margin: 0;
+  color: #303436;
+  font-size: 15px;
+  line-height: 1.8;
+  text-decoration: none;
+}
+
+.contact-detail-group a:hover {
+  color: #278391;
+}
+
+/* Check Availability Button */
+.contact-availability-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  margin-top: 10px;
+  padding: 16px 30px;
+  background-color: #278391;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.contact-availability-button:hover {
+  background-color: #176b78;
+  transform: translateY(-2px);
+}
+
+/* Empty Right Column */
+.contact-information-right {
+  display: none;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .contact-information {
+    padding: 80px 24px;
+  }
+
+  .contact-information-container {
+    gap: 0;
+  }
+
+  .contact-information-left {
+    max-width: 650px;
+  }
+
+  .contact-information-left h1 {
+    font-size: 58px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  .contact-hero {
+    height: 360px;
+    background-position: center;
+  }
+
+  .contact-information {
+    padding: 65px 22px 75px;
+  }
+
+  .contact-information-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-information-left {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .contact-information-left h1 {
+    font-size: 52px;
+    margin-bottom: 25px;
+  }
+
+  .contact-information-description {
+    margin: 0 auto 40px;
+    font-size: 15px;
+  }
+
+  .contact-detail-group {
+    margin-bottom: 28px;
+  }
+
+  .contact-detail-group h2 {
+    font-size: 24px;
+  }
+
+  .contact-detail-group p,
+  .contact-detail-group a {
+    font-size: 14px;
+  }
+
+  .contact-availability-button {
+    margin-top: 5px;
+  }
+
+  .contact-information-right {
+    display: none;
+  }
+} /* ========================================
+   FREQUENTLY ASKED QUESTIONS
+======================================== */
+
+.contact-faq-section {
+  width: 100%;
+  padding: 110px 24px 120px;
+  background-color: #faf9f6;
+}
+
+.contact-faq-container {
+  width: 100%;
+  max-width: 724px;
+  margin: 0 auto;
+}
+
+/* FAQ Heading */
+
+.contact-faq-heading {
+  margin-bottom: 48px;
+}
+
+.contact-faq-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #278391;
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+.contact-faq-eyebrow span {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background-color: #9dc6ca;
+}
+
+.contact-faq-heading h2 {
+  margin: 0;
+  color: #171b1c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(42px, 5vw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* FAQ Items */
+
+.contact-faq-list {
+  width: 100%;
+}
+
+.contact-faq-item {
+  border-bottom: 1px solid rgba(39, 131, 145, 0.2);
+}
+
+.contact-faq-item summary {
+  position: relative;
+  padding: 24px 35px 24px 0;
+  color: #278391;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+  list-style: none;
+  cursor: pointer;
+}
+
+.contact-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.contact-faq-item summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  color: #278391;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.contact-faq-item[open] summary::after {
+  content: "×";
+}
+
+.contact-faq-answer {
+  padding: 0 0 25px;
+}
+
+.contact-faq-answer p {
+  margin: 0;
+  color: #45484a;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.contact-faq-booking-link {
+  display: inline-block;
+  margin-top: 14px;
+  color: #278391;
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .contact-faq-section {
+    padding: 75px 22px 85px;
+  }
+
+  .contact-faq-heading {
+    margin-bottom: 32px;
+  }
+
+  .contact-faq-heading h2 {
+    font-size: 42px;
+  }
+
+  .contact-faq-item summary {
+    padding: 20px 30px 20px 0;
+    font-size: 21px;
+  }
+
+  .contact-faq-answer p {
+    font-size: 14px;
+  }
+}

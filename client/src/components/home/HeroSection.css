@@ -1,0 +1,207 @@
+/* ========================================
+   HERO SECTION
+======================================== */
+
+@font-face {
+  font-family: "Argue";
+  src: url("../../assets/fonts/Argue.woff2") format("woff2");
+  font-display: swap;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  overflow: clip;
+  background-color: #10120e;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #ffffff;
+}
+
+/* Dark overlay */
+
+.hero-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  pointer-events: none;
+}
+
+/* ========================================
+   CENTRED HERO BRANDING
+======================================== */
+
+.hero-center {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+/* Main ATALAYA heading */
+
+.hero-center h1 {
+  margin: 0;
+  padding-left: 25px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(70px, 7.2vw, 100px);
+  font-weight: 300;
+  letter-spacing: 14px;
+  line-height: 1.05;
+}
+
+/* RESORT subtitle */
+
+.hero-center-subtitle {
+  margin: 13px 0 0;
+  padding-left: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 10px;
+}
+
+/* EL NIDO · PALAWAN */
+
+.hero-location {
+  margin: 29px 0 0;
+  padding-left: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+}
+
+/* ========================================
+   HERO BUTTONS
+======================================== */
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 43px;
+}
+
+.hero-button {
+  display: flex;
+  min-width: 180px;
+  min-height: 53px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Primary button */
+
+.hero-button-primary {
+  border: 1px solid #278494;
+  background: #278494;
+  color: #ffffff;
+}
+
+.hero-button-primary:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #153d43;
+}
+
+/* Outline button */
+
+.hero-button-outline {
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: transparent;
+  color: #ffffff;
+}
+
+.hero-button-outline:hover {
+  background: #ffffff;
+  color: #153d43;
+}
+
+/* ========================================
+   TABLET RESPONSIVENESS
+======================================== */
+
+@media (max-width: 1100px) {
+  .hero-center h1 {
+    font-size: clamp(65px, 8vw, 90px);
+  }
+}
+
+/* ========================================
+   MOBILE RESPONSIVENESS
+======================================== */
+
+@media (max-width: 700px) {
+  .hero-section {
+    min-height: 560px;
+    background-position: center center;
+  }
+
+  .hero-center {
+    top: 51%;
+    padding: 0 15px;
+  }
+
+  .hero-center h1 {
+    padding-left: 9px;
+    font-size: clamp(45px, 11vw, 72px);
+    letter-spacing: 9px;
+  }
+
+  .hero-center-subtitle {
+    margin-top: 12px;
+    padding-left: 6px;
+    font-size: 11px;
+    letter-spacing: 7px;
+  }
+
+  .hero-location {
+    margin-top: 25px;
+    font-size: 9px;
+    letter-spacing: 3px;
+  }
+
+  .hero-buttons {
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .hero-button {
+    width: min(100%, 260px);
+    min-height: 49px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE SCREENS
+======================================== */
+
+@media (max-width: 380px) {
+  .hero-center h1 {
+    font-size: 42px;
+    letter-spacing: 6px;
+  }
+}

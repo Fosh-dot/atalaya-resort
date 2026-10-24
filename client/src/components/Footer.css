@@ -1,0 +1,269 @@
+/* =========================================
+   ATALAYA RESORT FOOTER
+========================================= */
+
+.site-footer {
+  width: 100%;
+  background-color: #070d0f;
+  color: #c5cecf;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Main footer layout */
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+  width: 100%;
+  min-height: 380px;
+  padding: 95px 20px 70px;
+}
+
+/* Footer columns */
+.footer-column {
+  min-width: 0;
+}
+
+/* Logo */
+.footer-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #e8eeee;
+  text-decoration: none;
+}
+
+.footer-logo-name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 7px;
+}
+
+.footer-logo-subtitle {
+  margin-top: 7px;
+  padding-left: 3px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 5px;
+}
+
+/* Brand description */
+.footer-brand-description {
+  max-width: 350px;
+  margin-top: 34px;
+}
+
+.footer-brand-description p {
+  margin: 0;
+  color: #b7c1c3;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+/* Column headings */
+.footer-column h3 {
+  margin: 0 0 36px;
+  color: #e8eeee;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 3px;
+}
+
+/* Visit us */
+.footer-visit address {
+  margin: 0 0 32px;
+  color: #b7c1c3;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.8;
+}
+
+.footer-review-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.footer-review-links a {
+  color: #e1e7e8;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.25s ease;
+}
+
+.footer-review-links a span {
+  margin-right: 8px;
+  color: #287e89;
+}
+
+.footer-review-links a:hover {
+  color: #55aab5;
+}
+
+/* Contact */
+.footer-contact-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.footer-contact-details a {
+  color: #dce4e5;
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-contact-details a:last-child {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.footer-contact-details a:hover {
+  color: #55aab5;
+}
+
+/* Social media links */
+.footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #287e89;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.footer-social-icon svg {
+  display: block;
+  width: 17px;
+  height: 17px;
+}
+
+.footer-social-icon:hover {
+  background-color: #3695a1;
+  transform: translateY(-2px);
+}
+
+/* Copyright */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 18px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #899597;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .footer-main {
+    gap: 30px;
+    padding: 75px 20px 55px;
+  }
+
+  .footer-column h3 {
+    font-size: 19px;
+    letter-spacing: 2px;
+  }
+
+  .footer-logo-name {
+    font-size: 23px;
+    letter-spacing: 5px;
+  }
+
+  .footer-brand-description p,
+  .footer-visit address,
+  .footer-review-links a,
+  .footer-contact-details a {
+    font-size: 12px;
+  }
+
+  .footer-socials {
+    gap: 8px;
+  }
+
+  .footer-social-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    padding: 55px 22px 45px;
+  }
+
+  .footer-brand-description {
+    margin-top: 25px;
+  }
+
+  .footer-column h3 {
+    margin-bottom: 23px;
+    font-size: 21px;
+  }
+
+  .footer-visit address {
+    margin-bottom: 24px;
+  }
+
+  .footer-contact-details a,
+  .footer-review-links a,
+  .footer-visit address,
+  .footer-brand-description p {
+    font-size: 13px;
+  }
+
+  .footer-socials {
+    margin-top: 25px;
+  }
+
+  .footer-bottom {
+    min-height: 60px;
+  }
+
+  .footer-bottom p {
+    font-size: 10px;
+  }
+}

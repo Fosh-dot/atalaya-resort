@@ -1,0 +1,255 @@
+/* ABOUT PAGE */
+.booking-about-page {
+  min-height: 100vh;
+  background: #f2f6f7;
+  color: #343434;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* NAVBAR */
+.booking-about-page .booking-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-height: 57px;
+  background: #086b79;
+  color: #ffffff;
+}
+
+.booking-about-page .booking-brand {
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.booking-about-page .booking-navigation {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding-left: 0;
+}
+
+.booking-about-page .booking-navigation a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.booking-about-page .booking-navigation a:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.booking-about-page .booking-navigation .booking-nav-active::after {
+  position: absolute;
+  right: 18px;
+  bottom: 0;
+  left: 18px;
+  height: 3px;
+  background: #ffffff;
+  content: "";
+}
+
+.booking-about-page .booking-currency {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 0 48px;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+/* CONTENT AREA */
+.booking-about-content {
+  box-sizing: border-box;
+  min-height: calc(100vh - 125px);
+  padding: 47px 20px 62px;
+}
+
+.booking-about-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 770px;
+  margin: 0 auto;
+  padding: 21px 30px 55px;
+  border-radius: 11px;
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(27, 62, 70, 0.08);
+}
+
+.booking-about-intro h1,
+.booking-about-amenities h2 {
+  margin: 0;
+  color: #383838;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.booking-about-intro p {
+  margin: 5px 0 24px;
+  color: #303030;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+
+.booking-about-divider {
+  height: 0;
+  margin: 0 0 16px;
+  border: 0;
+  border-top: 2px solid #e0e0e0;
+}
+
+/* AMENITIES */
+.booking-about-amenities h2 {
+  margin-bottom: 0;
+}
+
+.booking-about-amenities-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 30px;
+}
+
+.booking-about-amenity {
+  min-width: 0;
+  padding: 7px 0;
+  color: #303030;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.booking-about-toggle {
+  margin-top: 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #087789;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.booking-about-toggle:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+.booking-about-footer {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 48px 20px;
+  border-top: 1px solid #e9eeee;
+  background: #ffffff;
+  color: #333333;
+}
+
+.booking-about-footer-inner > a,
+.booking-about-footer-bottom a {
+  color: #087789;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.booking-about-footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+.booking-about-footer-bottom > * + * {
+  padding-left: 16px;
+  border-left: 1px solid #b8c0c4;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .booking-about-page .booking-brand {
+    padding: 0 18px;
+    font-size: 14px;
+  }
+
+  .booking-about-page .booking-navigation a {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .booking-about-page .booking-currency {
+    padding: 0 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .booking-about-content {
+    padding: 24px 12px 35px;
+  }
+
+  .booking-about-card {
+    padding: 22px 18px 35px;
+  }
+
+  .booking-about-intro h1,
+  .booking-about-amenities h2 {
+    font-size: 29px;
+  }
+
+  .booking-about-intro p {
+    font-size: 14px;
+  }
+
+  .booking-about-amenities-grid {
+    column-gap: 16px;
+  }
+
+  .booking-about-amenity {
+    font-size: 13px;
+  }
+
+  .booking-about-page .booking-navbar {
+    overflow-x: auto;
+  }
+
+  .booking-about-page .booking-brand {
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .booking-about-page .booking-navigation a {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .booking-about-page .booking-currency {
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .booking-about-footer {
+    padding: 16px;
+  }
+
+  .booking-about-footer-bottom {
+    gap: 8px;
+  }
+
+  .booking-about-footer-bottom > * + * {
+    padding-left: 8px;
+  }
+}
