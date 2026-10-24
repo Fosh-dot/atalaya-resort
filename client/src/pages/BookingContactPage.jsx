@@ -127,13 +127,13 @@ const BookingContactPage = () => {
 
             <p>
               <strong>Phone:</strong>{" "}
-              <a href="tel:+639565667480">+63 956 566 7480</a>
+              <a href="tel:+639565667480">+63 9640954036</a>
             </p>
 
             <p>
               <strong>Email:</strong>{" "}
               <a href="mailto:reservations@atalaya.ph">
-                reservations@atalaya.ph
+                atalayaresortelnido@outlook.com
               </a>
             </p>
 

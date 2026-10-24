@@ -36,10 +36,10 @@ function ContactPage() {
             <div className="contact-detail-group">
               <h2>Reservations</h2>
 
-              <a href="tel:+639565667480">+63 956 566 7480</a>
+              <a href="tel:+639565667480">+63 9640954036</a>
 
               <a href="mailto:reservations@atalaya.ph">
-                reservations@atalaya.ph
+                atalayaresortelnido@outlook.com
               </a>
             </div>
 
@@ -110,7 +110,10 @@ function ContactPage() {
             <details className="contact-faq-item">
               <summary>How can I contact the resort?</summary>
               <div className="contact-faq-answer">
-                <p>Call +63 956 566 7480 or email reservations@atalaya.ph.</p>
+                <p>
+                  Call +63 932 139 6258 or email
+                  :atalayaresortelnido@outlook.com
+                </p>
               </div>
             </details>
           </div>

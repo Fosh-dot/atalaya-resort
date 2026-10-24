@@ -23,7 +23,7 @@ function EscapeSection() {
             href="tel:+639565667480"
             className="escape-button escape-button-secondary"
           >
-            Call +63 956 566 7480
+            Call +63 932 139 6258
           </a>
         </div>
       </div>

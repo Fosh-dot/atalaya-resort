@@ -48,9 +48,11 @@ function Footer() {
           <h3>CONTACT US</h3>
 
           <div className="footer-contact-details">
-            <a href="tel:+639565667480">+63 956 566 7480</a>
+            <a href="tel:+639565667480">+63 9640954036</a>
 
-            <a href="mailto:reservations@atalaya.ph">reservations@atalaya.ph</a>
+            <a href="mailto:reservations@atalaya.ph">
+              atalayaresortelnido@outlook.com
+            </a>
           </div>
 
           {/* Social Media Icons */}

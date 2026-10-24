@@ -46,10 +46,12 @@ function DiningFooter() {
           <h2>CONTACT US</h2>
 
           <p>
-            <a href="tel:+639567159903">+63 956 715 9903</a>
+            <a href="tel:+639567159903">+63 9640954036</a>
             <br />
 
-            <a href="mailto:fandb@atalaya.ph">fandb@atalaya.ph</a>
+            <a href="mailto:fandb@atalaya.ph">
+              atalayaresortelnido@outlook.com
+            </a>
           </p>
 
           <div className="dining-social-links" aria-label="Social media">

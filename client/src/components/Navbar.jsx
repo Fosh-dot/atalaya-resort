@@ -96,7 +96,7 @@ function Navbar() {
 
       {/* Phone Number */}
       <a className="hero-phone" href="tel:+639565667480">
-        +63 956 566 7480
+        +63 9640954036
       </a>
 
       {/* Reserve Button */}
