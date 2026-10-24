@@ -9,6 +9,14 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || "atalaya_resort",
   user: process.env.DB_USER || "atalaya_app",
   password: process.env.DB_PASSWORD,
+
+  // Match Haya Resort's TiDB Cloud TLS configuration
+  ssl: process.env.DB_HOST
+    ? {
+        minVersion: "TLSv1.2",
+      }
+    : undefined,
+
   waitForConnections: true,
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT || 10),
   queueLimit: 0,
