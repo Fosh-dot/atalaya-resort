@@ -41,13 +41,13 @@ export async function listAdminPayments(req, res, next) {
         p.payment_date,
         p.payment_status AS payment_status,
         p.rejection_reason,
-        p.submitted_at,
+        p.created_at AS submitted_at,
         p.verified_at,
         ps.id AS slip_id,
         ps.original_filename AS slip_filename,
         ps.mime_type AS slip_mime_type,
         ps.file_size AS slip_file_size,
-        ps.uploaded_at AS slip_uploaded_at
+        ps.created_at AS slip_uploaded_at
       FROM payments p
       INNER JOIN bookings b
         ON b.id = p.booking_id
@@ -55,7 +55,7 @@ export async function listAdminPayments(req, res, next) {
         ON g.id = b.guest_id
       LEFT JOIN payment_slips ps
         ON ps.payment_id = p.id
-      ORDER BY p.submitted_at DESC, p.id DESC
+      ORDER BY p.created_at DESC, p.id DESC
     `);
 
     return res.status(200).json({
@@ -80,17 +80,17 @@ export async function viewPaymentSlip(req, res, next) {
 
     const [rows] = await pool.execute(
       `
-      SELECT
-        ps.id,
-        ps.file_path,
-        ps.original_filename,
-        ps.mime_type
-      FROM payment_slips ps
-      INNER JOIN payments p
-        ON p.id = ps.payment_id
-      WHERE p.id = ?
-      ORDER BY ps.uploaded_at DESC, ps.id DESC
-      LIMIT 1
+        SELECT
+          ps.id,
+          ps.file_path,
+          ps.original_filename,
+          ps.mime_type
+        FROM payment_slips ps
+        INNER JOIN payments p
+          ON p.id = ps.payment_id
+        WHERE p.id = ?
+        ORDER BY ps.created_at DESC, ps.id DESC
+        LIMIT 1
       `,
       [paymentId],
     );
@@ -150,8 +150,7 @@ export async function viewPaymentSlip(req, res, next) {
 }
 
 // PATCH /api/admin/payments/:paymentId/verify
-// Verify a submitted payment without automatically confirming
-// the associated booking.
+// Verify a submitted payment without automatically confirming the booking.
 export async function verifyAdminPayment(req, res, next) {
   const paymentId = Number(req.params.paymentId);
 
@@ -170,20 +169,20 @@ export async function verifyAdminPayment(req, res, next) {
 
     const [payments] = await connection.execute(
       `
-      SELECT
-        p.id,
-        p.booking_id,
-        p.amount,
-        p.payment_status AS payment_status,
-        b.total_amount,
-        b.amount_paid,
-        b.currency AS booking_currency,
-        p.currency AS payment_currency
-      FROM payments p
-      INNER JOIN bookings b
-        ON b.id = p.booking_id
-      WHERE p.id = ?
-      FOR UPDATE
+        SELECT
+          p.id,
+          p.booking_id,
+          p.amount,
+          p.payment_status AS payment_status,
+          b.total_amount,
+          b.amount_paid,
+          b.currency AS booking_currency,
+          p.currency AS payment_currency
+        FROM payments p
+        INNER JOIN bookings b
+          ON b.id = p.booking_id
+        WHERE p.id = ?
+        FOR UPDATE
       `,
       [paymentId],
     );
@@ -213,10 +212,10 @@ export async function verifyAdminPayment(req, res, next) {
 
     const [slips] = await connection.execute(
       `
-      SELECT id
-      FROM payment_slips
-      WHERE payment_id = ?
-      LIMIT 1
+        SELECT id
+        FROM payment_slips
+        WHERE payment_id = ?
+        LIMIT 1
       `,
       [paymentId],
     );
@@ -268,16 +267,15 @@ export async function verifyAdminPayment(req, res, next) {
       );
     }
 
-    // Update the payment and booking amount in one transaction.
-    // Booking confirmation remains a separate admin action.
+    // Update payment status inside the transaction.
     const [updateResult] = await connection.execute(
       `
-      UPDATE payments
-      SET payment_status = 'verified',
-          rejection_reason = NULL,
-          verified_at = CURRENT_TIMESTAMP
-      WHERE id = ?
-        AND payment_status = 'under_review'
+        UPDATE payments
+        SET payment_status = 'verified',
+            rejection_reason = NULL,
+            verified_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+          AND payment_status = 'under_review'
       `,
       [paymentId],
     );
@@ -295,10 +293,10 @@ export async function verifyAdminPayment(req, res, next) {
 
     await connection.execute(
       `
-      UPDATE bookings
-      SET amount_paid = amount_paid + ?,
-          updated_at = CURRENT_TIMESTAMP
-      WHERE id = ?
+        UPDATE bookings
+        SET amount_paid = amount_paid + ?,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
       `,
       [amount, payment.booking_id],
     );
@@ -361,16 +359,16 @@ export async function rejectAdminPayment(req, res, next) {
 
     const [payments] = await connection.execute(
       `
-      SELECT
-        p.id,
-        p.booking_id,
-        p.payment_status AS payment_status,
-        b.booking_status
-      FROM payments p
-      INNER JOIN bookings b
-        ON b.id = p.booking_id
-      WHERE p.id = ?
-      FOR UPDATE
+        SELECT
+          p.id,
+          p.booking_id,
+          p.payment_status AS payment_status,
+          b.booking_status
+        FROM payments p
+        INNER JOIN bookings b
+          ON b.id = p.booking_id
+        WHERE p.id = ?
+        FOR UPDATE
       `,
       [paymentId],
     );
@@ -411,12 +409,12 @@ export async function rejectAdminPayment(req, res, next) {
 
     const [updateResult] = await connection.execute(
       `
-      UPDATE payments
-      SET payment_status = 'rejected',
-          rejection_reason = ?,
-          verified_at = NULL
-      WHERE id = ?
-        AND payment_status IN ('pending', 'under_review')
+        UPDATE payments
+        SET payment_status = 'rejected',
+            rejection_reason = ?,
+            verified_at = NULL
+        WHERE id = ?
+          AND payment_status IN ('pending', 'under_review')
       `,
       [reason, paymentId],
     );
@@ -433,8 +431,6 @@ export async function rejectAdminPayment(req, res, next) {
     }
 
     // The booking status is intentionally unchanged.
-    // Review the booking separately.
-
     await connection.commit();
     transactionStarted = false;
 
