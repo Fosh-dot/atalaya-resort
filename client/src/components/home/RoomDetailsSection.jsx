@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./RoomDetailsSection.css";
 
 const rooms = [
@@ -37,27 +38,22 @@ const rooms = [
 function RoomDetailsSection() {
   return (
     <section className="room-details-section">
+      {" "}
       <div className="room-details-grid">
         {rooms.map((room) => (
           <article className="room-details-card" key={room.name}>
+            {" "}
             <div className="room-details-description">
-              <p>{room.description}</p>
+              {" "}
+              <p>{room.description}</p>{" "}
             </div>
-
             <p className="room-details-amenities">{room.amenities}</p>
-
             <div className="room-details-booking">
               <h3>{room.price}</h3>
 
-              <button
-                type="button"
-                className="room-book-now"
-                onClick={() => {
-                  // Connect to the booking flow when it is implemented.
-                }}
-              >
+              <Link to="/booking" className="room-book-now">
                 BOOK NOW
-              </button>
+              </Link>
             </div>
           </article>
         ))}
