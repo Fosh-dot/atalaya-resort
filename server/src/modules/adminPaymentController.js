@@ -1,13 +1,11 @@
-import path from "node:path";
-import fs from "node:fs";
-import { fileURLToPath } from "node:url";
+import { v2 as cloudinary } from "cloudinary";
 import pool from "../database/db.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Private payment-slip storage directory.
-const PRIVATE_UPLOADS_DIR = path.resolve(__dirname, "../../private_uploads");
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 function sendError(res, status, message) {
   return res.status(status).json({
@@ -69,7 +67,7 @@ export async function listAdminPayments(req, res, next) {
 }
 
 // GET /api/admin/payments/:paymentId/slip
-// View a private payment slip.
+// Retrieve a private payment slip for an authenticated administrator.
 export async function viewPaymentSlip(req, res, next) {
   try {
     const paymentId = Number(req.params.paymentId);
@@ -79,19 +77,16 @@ export async function viewPaymentSlip(req, res, next) {
     }
 
     const [rows] = await pool.execute(
-      `
-        SELECT
-          ps.id,
-          ps.file_path,
-          ps.original_filename,
-          ps.mime_type
-        FROM payment_slips ps
-        INNER JOIN payments p
-          ON p.id = ps.payment_id
-        WHERE p.id = ?
-        ORDER BY ps.created_at DESC, ps.id DESC
-        LIMIT 1
-      `,
+      `SELECT
+         ps.file_path,
+         ps.original_filename,
+         ps.mime_type
+       FROM payment_slips ps
+       INNER JOIN payments p
+         ON p.id = ps.payment_id
+       WHERE p.id = ?
+       ORDER BY ps.created_at DESC, ps.id DESC
+       LIMIT 1`,
       [paymentId],
     );
 
@@ -100,26 +95,14 @@ export async function viewPaymentSlip(req, res, next) {
     }
 
     const slip = rows[0];
-    const storedPath = String(slip.file_path || "");
+    const publicId = String(slip.file_path || "");
 
-    if (!storedPath || path.isAbsolute(storedPath)) {
-      return sendError(res, 404, "The payment slip file could not be located.");
-    }
-
-    const filePath = path.resolve(PRIVATE_UPLOADS_DIR, storedPath);
-    const relativePath = path.relative(PRIVATE_UPLOADS_DIR, filePath);
-
-    if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {
-      return sendError(res, 400, "Invalid payment slip file path.");
-    }
-
-    try {
-      await fs.promises.access(filePath, fs.constants.R_OK);
-    } catch {
+    // Only accept identifiers created by our payment upload controller.
+    if (!/^payment-receipts\/[a-f0-9-]+$/i.test(publicId)) {
       return sendError(
         res,
         404,
-        "The payment slip file is missing from storage.",
+        "This receipt is not available in Cloudinary. It may be an older local file.",
       );
     }
 
@@ -130,20 +113,32 @@ export async function viewPaymentSlip(req, res, next) {
       "application/pdf",
     ]);
 
-    const mimeType = allowedMimeTypes.has(slip.mime_type)
-      ? slip.mime_type
-      : "application/octet-stream";
+    if (!allowedMimeTypes.has(slip.mime_type)) {
+      return sendError(res, 415, "Unsupported payment receipt format.");
+    }
 
-    res.setHeader("Content-Type", mimeType);
-    res.setHeader("X-Content-Type-Options", "nosniff");
+    const extensionByMimeType = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp",
+      "application/pdf": "pdf",
+    };
+
+    const downloadUrl = cloudinary.utils.private_download_url(
+      publicId,
+      extensionByMimeType[slip.mime_type],
+      {
+        resource_type: "raw",
+        type: "authenticated",
+        attachment: false,
+        expires_at: Math.floor(Date.now() / 1000) + 60,
+      },
+    );
+
     res.setHeader("Cache-Control", "private, no-store");
-    res.setHeader("Content-Disposition", "inline");
+    res.setHeader("X-Content-Type-Options", "nosniff");
 
-    return res.sendFile(filePath, (error) => {
-      if (error && !res.headersSent) {
-        next(error);
-      }
-    });
+    return res.redirect(302, downloadUrl);
   } catch (error) {
     next(error);
   }
@@ -168,29 +163,26 @@ export async function verifyAdminPayment(req, res, next) {
     transactionStarted = true;
 
     const [payments] = await connection.execute(
-      `
-        SELECT
-          p.id,
-          p.booking_id,
-          p.amount,
-          p.payment_status AS payment_status,
-          b.total_amount,
-          b.amount_paid,
-          b.currency AS booking_currency,
-          p.currency AS payment_currency
-        FROM payments p
-        INNER JOIN bookings b
-          ON b.id = p.booking_id
-        WHERE p.id = ?
-        FOR UPDATE
-      `,
+      `SELECT
+         p.id,
+         p.booking_id,
+         p.amount,
+         p.payment_status AS payment_status,
+         b.total_amount,
+         b.amount_paid,
+         b.currency AS booking_currency,
+         p.currency AS payment_currency
+       FROM payments p
+       INNER JOIN bookings b
+         ON b.id = p.booking_id
+       WHERE p.id = ?
+       FOR UPDATE`,
       [paymentId],
     );
 
     if (payments.length === 0) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(res, 404, "Payment not found.");
     }
 
@@ -199,31 +191,26 @@ export async function verifyAdminPayment(req, res, next) {
     if (payment.payment_status === "verified") {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(res, 409, "This payment has already been verified.");
     }
 
     if (payment.payment_status !== "under_review") {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(res, 409, "Only payments under review can be verified.");
     }
 
     const [slips] = await connection.execute(
-      `
-        SELECT id
-        FROM payment_slips
-        WHERE payment_id = ?
-        LIMIT 1
-      `,
+      `SELECT id
+       FROM payment_slips
+       WHERE payment_id = ?
+       LIMIT 1`,
       [paymentId],
     );
 
     if (slips.length === 0) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -245,7 +232,6 @@ export async function verifyAdminPayment(req, res, next) {
     ) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -259,7 +245,6 @@ export async function verifyAdminPayment(req, res, next) {
     ) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -267,23 +252,19 @@ export async function verifyAdminPayment(req, res, next) {
       );
     }
 
-    // Update payment status inside the transaction.
     const [updateResult] = await connection.execute(
-      `
-        UPDATE payments
-        SET payment_status = 'verified',
-            rejection_reason = NULL,
-            verified_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-          AND payment_status = 'under_review'
-      `,
+      `UPDATE payments
+       SET payment_status = 'verified',
+           rejection_reason = NULL,
+           verified_at = CURRENT_TIMESTAMP
+       WHERE id = ?
+         AND payment_status = 'under_review'`,
       [paymentId],
     );
 
     if (updateResult.affectedRows !== 1) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -292,12 +273,10 @@ export async function verifyAdminPayment(req, res, next) {
     }
 
     await connection.execute(
-      `
-        UPDATE bookings
-        SET amount_paid = amount_paid + ?,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE id = ?
-      `,
+      `UPDATE bookings
+       SET amount_paid = amount_paid + ?,
+           updated_at = CURRENT_TIMESTAMP
+       WHERE id = ?`,
       [amount, payment.booking_id],
     );
 
@@ -317,7 +296,7 @@ export async function verifyAdminPayment(req, res, next) {
     });
   } catch (error) {
     if (connection && transactionStarted) {
-      await connection.rollback();
+      await connection.rollback().catch(() => {});
     }
 
     next(error);
@@ -358,25 +337,22 @@ export async function rejectAdminPayment(req, res, next) {
     transactionStarted = true;
 
     const [payments] = await connection.execute(
-      `
-        SELECT
-          p.id,
-          p.booking_id,
-          p.payment_status AS payment_status,
-          b.booking_status
-        FROM payments p
-        INNER JOIN bookings b
-          ON b.id = p.booking_id
-        WHERE p.id = ?
-        FOR UPDATE
-      `,
+      `SELECT
+         p.id,
+         p.booking_id,
+         p.payment_status AS payment_status,
+         b.booking_status
+       FROM payments p
+       INNER JOIN bookings b
+         ON b.id = p.booking_id
+       WHERE p.id = ?
+       FOR UPDATE`,
       [paymentId],
     );
 
     if (payments.length === 0) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(res, 404, "Payment not found.");
     }
 
@@ -385,7 +361,6 @@ export async function rejectAdminPayment(req, res, next) {
     if (payment.payment_status === "verified") {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -399,7 +374,6 @@ export async function rejectAdminPayment(req, res, next) {
     ) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -408,21 +382,18 @@ export async function rejectAdminPayment(req, res, next) {
     }
 
     const [updateResult] = await connection.execute(
-      `
-        UPDATE payments
-        SET payment_status = 'rejected',
-            rejection_reason = ?,
-            verified_at = NULL
-        WHERE id = ?
-          AND payment_status IN ('pending', 'under_review')
-      `,
+      `UPDATE payments
+       SET payment_status = 'rejected',
+           rejection_reason = ?,
+           verified_at = NULL
+       WHERE id = ?
+         AND payment_status IN ('pending', 'under_review')`,
       [reason, paymentId],
     );
 
     if (updateResult.affectedRows !== 1) {
       await connection.rollback();
       transactionStarted = false;
-
       return sendError(
         res,
         409,
@@ -446,7 +417,7 @@ export async function rejectAdminPayment(req, res, next) {
     });
   } catch (error) {
     if (connection && transactionStarted) {
-      await connection.rollback();
+      await connection.rollback().catch(() => {});
     }
 
     next(error);

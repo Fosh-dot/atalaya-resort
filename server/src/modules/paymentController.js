@@ -1,11 +1,68 @@
 import pool from "../database/db.js";
-import fs from "node:fs/promises";
+import { v2 as cloudinary } from "cloudinary";
+import { randomUUID } from "node:crypto";
 import path from "node:path";
-import { uploadDirectory } from "../middleware/paymentUpload.js";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const allowedPaymentMethods = new Set([
+  "bank_transfer",
+  "cash_deposit",
+  "other",
+]);
+
+const allowedMimeTypes = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "application/pdf",
+]);
+
+const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp", ".pdf"]);
+
+function uploadToCloudinary(file, publicId) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        public_id: publicId,
+        resource_type: "raw",
+        type: "authenticated",
+        overwrite: false,
+        context: {
+          original_filename: path.basename(file.originalname),
+        },
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result);
+      },
+    );
+
+    stream.end(file.buffer);
+  });
+}
+
+async function deleteCloudinaryFile(publicId) {
+  if (!publicId) return;
+
+  await cloudinary.uploader
+    .destroy(publicId, {
+      resource_type: "raw",
+      type: "authenticated",
+      invalidate: true,
+    })
+    .catch((error) => {
+      console.error("Could not clean up Cloudinary receipt:", error.message);
+    });
+}
 
 // POST /api/payments/:paymentId/slip
 export async function uploadPaymentSlip(req, res, next) {
-  let uploadedFilePath;
+  let uploadedPublicId;
 
   try {
     const paymentId = Number(req.params.paymentId);
@@ -17,16 +74,27 @@ export async function uploadPaymentSlip(req, res, next) {
       });
     }
 
-    if (!req.file) {
+    const file = req.file;
+
+    if (!file) {
       return res.status(400).json({
         success: false,
         message: "Please select a payment receipt to upload.",
       });
     }
 
-    uploadedFilePath = req.file.path;
+    const extension = path.extname(file.originalname).toLowerCase();
 
-    // Read payment details submitted by the guest.
+    if (
+      !allowedMimeTypes.has(file.mimetype) ||
+      !allowedExtensions.has(extension)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Only JPEG, PNG, WebP, and PDF receipts are allowed.",
+      });
+    }
+
     const paymentMethod = String(req.body.payment_method || "")
       .trim()
       .toLowerCase();
@@ -37,13 +105,7 @@ export async function uploadPaymentSlip(req, res, next) {
 
     const paymentDate = String(req.body.payment_date || "").trim();
 
-    const allowedPaymentMethods = ["bank_transfer", "cash_deposit", "other"];
-
-    // Validate payment details.
-    if (!allowedPaymentMethods.includes(paymentMethod)) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
-      uploadedFilePath = undefined;
-
+    if (!allowedPaymentMethods.has(paymentMethod)) {
       return res.status(400).json({
         success: false,
         message: "Please select a valid payment method.",
@@ -51,16 +113,12 @@ export async function uploadPaymentSlip(req, res, next) {
     }
 
     if (!transactionReference || transactionReference.length > 150) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
-      uploadedFilePath = undefined;
-
       return res.status(400).json({
         success: false,
         message: "Please enter a valid transaction reference.",
       });
     }
 
-    // Require a valid YYYY-MM-DD date.
     const validDateFormat = /^\d{4}-\d{2}-\d{2}$/.test(paymentDate);
     const parsedDate = validDateFormat
       ? new Date(`${paymentDate}T00:00:00.000Z`)
@@ -71,56 +129,20 @@ export async function uploadPaymentSlip(req, res, next) {
       Number.isNaN(parsedDate.getTime()) ||
       parsedDate.toISOString().slice(0, 10) !== paymentDate
     ) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
-      uploadedFilePath = undefined;
-
       return res.status(400).json({
         success: false,
         message: "Please provide a valid payment date.",
       });
     }
 
-    // Check that the payment exists and can accept a receipt.
-    const [payments] = await pool.execute(
-      `SELECT id, payment_status
-       FROM payments
-       WHERE id = ?
-       LIMIT 1`,
-      [paymentId],
-    );
-
-    if (payments.length === 0) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
-      uploadedFilePath = undefined;
-
-      return res.status(404).json({
-        success: false,
-        message: "Payment record not found.",
-      });
-    }
-
-    if (!["pending", "rejected"].includes(payments[0].payment_status)) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
-      uploadedFilePath = undefined;
-
-      return res.status(409).json({
-        success: false,
-        message: "This payment cannot accept another receipt.",
-      });
-    }
-
-    const relativeFilePath = path
-      .relative(uploadDirectory, uploadedFilePath)
-      .split(path.sep)
-      .join("/");
-
     const connection = await pool.getConnection();
+    let transactionStarted = false;
 
     try {
       await connection.beginTransaction();
+      transactionStarted = true;
 
-      // Lock the payment row to prevent concurrent submissions.
-      const [lockedPayments] = await connection.execute(
+      const [payments] = await connection.execute(
         `SELECT id, payment_status
          FROM payments
          WHERE id = ?
@@ -128,22 +150,31 @@ export async function uploadPaymentSlip(req, res, next) {
         [paymentId],
       );
 
-      if (
-        lockedPayments.length === 0 ||
-        !["pending", "rejected"].includes(lockedPayments[0].payment_status)
-      ) {
+      if (payments.length === 0) {
         await connection.rollback();
+        transactionStarted = false;
 
-        await fs.unlink(uploadedFilePath).catch(() => {});
-        uploadedFilePath = undefined;
-
-        return res.status(409).json({
+        return res.status(404).json({
           success: false,
-          message: "This payment can no longer accept a receipt.",
+          message: "Payment record not found.",
         });
       }
 
-      // Save the uploaded receipt.
+      if (!["pending", "rejected"].includes(payments[0].payment_status)) {
+        await connection.rollback();
+        transactionStarted = false;
+
+        return res.status(409).json({
+          success: false,
+          message: "This payment cannot accept another receipt.",
+        });
+      }
+
+      const publicId = `payment-receipts/${randomUUID()}`;
+
+      const cloudinaryResult = await uploadToCloudinary(file, publicId);
+      uploadedPublicId = cloudinaryResult.public_id;
+
       const [result] = await connection.execute(
         `INSERT INTO payment_slips (
            payment_id,
@@ -154,14 +185,13 @@ export async function uploadPaymentSlip(req, res, next) {
          ) VALUES (?, ?, ?, ?, ?)`,
         [
           paymentId,
-          relativeFilePath,
-          path.basename(req.file.originalname),
-          req.file.mimetype,
-          req.file.size,
+          uploadedPublicId,
+          path.basename(file.originalname),
+          file.mimetype,
+          file.size,
         ],
       );
 
-      // Save the guest's payment details.
       await connection.execute(
         `UPDATE payments
          SET payment_method = ?,
@@ -174,9 +204,8 @@ export async function uploadPaymentSlip(req, res, next) {
       );
 
       await connection.commit();
-
-      // The uploaded file is now associated with the database record.
-      uploadedFilePath = undefined;
+      transactionStarted = false;
+      uploadedPublicId = undefined;
 
       return res.status(201).json({
         success: true,
@@ -191,14 +220,17 @@ export async function uploadPaymentSlip(req, res, next) {
         },
       });
     } catch (error) {
-      await connection.rollback();
+      if (transactionStarted) {
+        await connection.rollback().catch(() => {});
+      }
+
       throw error;
     } finally {
       connection.release();
     }
   } catch (error) {
-    if (uploadedFilePath) {
-      await fs.unlink(uploadedFilePath).catch(() => {});
+    if (uploadedPublicId) {
+      await deleteCloudinaryFile(uploadedPublicId);
     }
 
     next(error);
