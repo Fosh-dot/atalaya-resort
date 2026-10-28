@@ -137,11 +137,14 @@ function BookingPage() {
       return () => clearTimeout(timer);
     }
   }, [location.pathname, location.hash]);
+
   useEffect(() => {
     document.title = "Atalaya Resort | Availability";
   }, []);
+
   const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [rooms, setRooms] = useState(1);
@@ -152,6 +155,7 @@ function BookingPage() {
   const [imageIndexes, setImageIndexes] = useState({});
   const [expandedRooms, setExpandedRooms] = useState([]);
   const [apiAccommodations, setApiAccommodations] = useState([]);
+
   const [publicSettings, setPublicSettings] = useState({
     resort_name: "Atalaya Resort",
     payment_instructions: "",
@@ -160,16 +164,19 @@ function BookingPage() {
     account_number: "",
     account_currency: "PHP",
   });
+
   const [receiptFile, setReceiptFile] = useState(null);
   const [paymentPlan, setPaymentPlan] = useState("full");
   const [transactionReference, setTransactionReference] = useState("");
   const [paymentDate, setPaymentDate] = useState(
     new Date().toISOString().slice(0, 10),
   );
+
   const [receiptLoading, setReceiptLoading] = useState(false);
   const [receiptMessage, setReceiptMessage] = useState("");
   const [receiptError, setReceiptError] = useState("");
   const [showGuestForm, setShowGuestForm] = useState(false);
+
   const [guestDetails, setGuestDetails] = useState({
     fullName: "",
     email: "",
@@ -177,28 +184,37 @@ function BookingPage() {
     adults: 2,
     children: 0,
   });
+
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(null);
 
   useEffect(() => {
     let active = true;
+
     async function loadAccommodations() {
       try {
         const response = await fetch(`${API_BASE_URL}/accommodations`);
         const result = await response.json();
-        if (!response.ok || !result.success)
+
+        if (!response.ok || !result.success) {
           throw new Error(result.message || "Could not load accommodations.");
-        if (active)
+        }
+
+        if (active) {
           setApiAccommodations(Array.isArray(result.data) ? result.data : []);
+        }
       } catch {
-        if (active)
+        if (active) {
           setBookingError(
             "Could not connect to the booking server. Check that the backend is running.",
           );
+        }
       }
     }
+
     loadAccommodations();
+
     return () => {
       active = false;
     };
@@ -211,11 +227,16 @@ function BookingPage() {
       try {
         const response = await fetch(`${API_BASE_URL}/public/settings`);
         const result = await response.json();
+
         if (!response.ok || !result.success) {
           throw new Error(result.message || "Could not load payment details.");
         }
+
         if (active) {
-          setPublicSettings((previous) => ({ ...previous, ...result.data }));
+          setPublicSettings((previous) => ({
+            ...previous,
+            ...result.data,
+          }));
         }
       } catch (error) {
         if (active) {
@@ -227,6 +248,7 @@ function BookingPage() {
     }
 
     loadPublicSettings();
+
     return () => {
       active = false;
     };
@@ -255,23 +277,27 @@ function BookingPage() {
       "image/webp",
       "application/pdf",
     ];
+
     if (!allowedTypes.includes(receiptFile.type)) {
       setReceiptError("Upload a JPG, PNG, WEBP, or PDF receipt.");
       return;
     }
 
     const maxSize = 5 * 1024 * 1024;
+
     if (receiptFile.size > maxSize) {
       setReceiptError("The receipt must be 5 MB or smaller.");
       return;
     }
 
     setReceiptLoading(true);
+
     try {
       if (!transactionReference.trim()) {
         setReceiptError("Please enter your transaction reference.");
         return;
       }
+
       if (!paymentDate) {
         setReceiptError("Please select the date you made the payment.");
         return;
@@ -285,9 +311,14 @@ function BookingPage() {
 
       const response = await fetch(
         `${API_BASE_URL}/payments/${bookingSuccess.paymentId}/slip`,
-        { method: "POST", body: formData },
+        {
+          method: "POST",
+          body: formData,
+        },
       );
+
       const result = await response.json();
+
       if (!response.ok || !result.success) {
         throw new Error(result.message || "Receipt upload failed.");
       }
@@ -296,10 +327,15 @@ function BookingPage() {
         result.message ||
           "Your payment receipt was uploaded successfully and is awaiting review.",
       );
+
       setReceiptFile(null);
       setTransactionReference("");
+
       const fileInput = document.getElementById("booking-payment-receipt");
-      if (fileInput) fileInput.value = "";
+
+      if (fileInput) {
+        fileInput.value = "";
+      }
     } catch (error) {
       setReceiptError(error.message || "Could not upload your receipt.");
     } finally {
@@ -307,26 +343,44 @@ function BookingPage() {
     }
   }
 
+  // Fixed room matching: Friends and Family Villa in the UI is stored
+  // as Friends and Family Villa (4-Bedroom) in the TiDB Cloud database.
+  const normalizeAccommodationName = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+
   const apiAccommodationByName = useMemo(() => {
-    const normalize = (value) =>
-      String(value || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
     return new Map(
-      apiAccommodations.map((item) => [normalize(item.name), item]),
+      apiAccommodations.map((item) => [
+        normalizeAccommodationName(item.name),
+        item,
+      ]),
     );
   }, [apiAccommodations]);
 
   const liveAccommodations = accommodations.map((room) => {
-    const normalize = (value) =>
-      String(value || "")
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "");
-    const live = apiAccommodationByName.get(normalize(room.name));
+    const normalizedName = normalizeAccommodationName(room.name);
+
+    const live =
+      apiAccommodationByName.get(normalizedName) ||
+      (room.id === 4
+        ? apiAccommodations.find(
+            (item) =>
+              normalizeAccommodationName(item.name) ===
+              normalizeAccommodationName(
+                "Friends and Family Villa (4-Bedroom)",
+              ),
+          )
+        : null);
+
     return {
       ...room,
       databaseId: live?.id ?? null,
-      rate: live ? Number(live.price_per_night) : room.rate,
+      rate:
+        live?.price_per_night != null
+          ? Number(live.price_per_night)
+          : room.rate,
     };
   });
 
@@ -347,9 +401,11 @@ function BookingPage() {
   );
 
   const selectedRoom = selectedAccommodations[0] || null;
+
   const hasUnconfirmedPrice = selectedAccommodations.some(
     (room) => room.rate === null || !room.databaseId,
   );
+
   const totalPrice = selectedRoom
     ? (selectedRoom.rate ?? 0) * nights * rooms
     : 0;
@@ -372,9 +428,11 @@ function BookingPage() {
       );
       return;
     }
+
     setBookingError("");
     setBookingSuccess(null);
     setShowGuestForm(false);
+
     setSelectedRates((previous) =>
       previous.includes(room.id) ? [] : [room.id],
     );
@@ -384,19 +442,25 @@ function BookingPage() {
     event.preventDefault();
     setBookingError("");
     setBookingSuccess(null);
+
     if (!selectedRoom?.databaseId) {
       setBookingError("Please select one accommodation type first.");
       return;
     }
+
     if (!checkIn || !checkOut || nights < 1) {
       setBookingError("Please select valid check-in and check-out dates.");
       return;
     }
+
     setBookingLoading(true);
+
     try {
       const response = await fetch(`${API_BASE_URL}/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           fullName: guestDetails.fullName.trim(),
           email: guestDetails.email.trim(),
@@ -410,11 +474,15 @@ function BookingPage() {
           paymentPlan,
         }),
       });
+
       const result = await response.json();
-      if (!response.ok || !result.success)
+
+      if (!response.ok || !result.success) {
         throw new Error(
           result.message || "Reservation could not be submitted.",
         );
+      }
+
       setBookingSuccess(result.data);
       setShowGuestForm(false);
     } catch (error) {
@@ -433,7 +501,6 @@ function BookingPage() {
         : [...previous, roomId],
     );
   }
-
   return (
     <main className="booking-page">
       {/* BOOKING WEBSITE NAVIGATION */}
@@ -693,9 +760,7 @@ function BookingPage() {
                         <span>
                           {room.paymentTerms === "Book now, pay later"
                             ? "✓"
-                            : room.rate === null
-                              ? "ⓘ"
-                              : "ⓘ"}
+                            : "ⓘ"}
                         </span>
 
                         {room.paymentTerms}
@@ -825,18 +890,21 @@ function BookingPage() {
             onClick={() => {
               setBookingError("");
               setBookingSuccess(null);
+
               if (!checkIn || !checkOut || nights <= 0) {
                 setBookingError(
                   "Please select valid check-in and check-out dates.",
                 );
                 return;
               }
+
               if (hasUnconfirmedPrice) {
                 setBookingError(
                   "This accommodation is not connected to the database yet.",
                 );
                 return;
               }
+
               setShowGuestForm(true);
             }}
           >
@@ -848,7 +916,6 @@ function BookingPage() {
               {bookingError}
             </p>
           )}
-
           {bookingSuccess && (
             <div className="booking-confirmation" role="status">
               <h3>Reservation submitted</h3>
@@ -897,31 +964,37 @@ function BookingPage() {
 
               <div className="booking-payment-details">
                 <h4>Payment instructions</h4>
+
                 {publicSettings.bank_name && (
                   <p>
                     <strong>Bank:</strong> {publicSettings.bank_name}
                   </p>
                 )}
+
                 {publicSettings.account_name && (
                   <p>
                     <strong>Account name:</strong> {publicSettings.account_name}
                   </p>
                 )}
+
                 {publicSettings.account_number && (
                   <p>
                     <strong>Account number:</strong>{" "}
                     {publicSettings.account_number}
                   </p>
                 )}
+
                 <p>
                   <strong>Currency:</strong>{" "}
                   {publicSettings.account_currency ||
                     bookingSuccess.currency ||
                     "PHP"}
                 </p>
+
                 {publicSettings.payment_instructions && (
                   <p>{publicSettings.payment_instructions}</p>
                 )}
+
                 {!publicSettings.bank_name &&
                   !publicSettings.account_name &&
                   !publicSettings.account_number && (
@@ -938,10 +1011,12 @@ function BookingPage() {
                   onSubmit={uploadPaymentReceipt}
                 >
                   <h4>Upload payment receipt</h4>
+
                   <p>
                     Booking reference:{" "}
                     <strong>{bookingSuccess.bookingReference}</strong>
                   </p>
+
                   <p>
                     Amount to submit:{" "}
                     <strong>
@@ -952,10 +1027,12 @@ function BookingPage() {
                       ).toLocaleString("en-PH", { minimumFractionDigits: 2 })}
                     </strong>
                   </p>
+
                   <div className="booking-payment-method">
                     <label>Payment method</label>
                     <p>Bank Transfer</p>
                   </div>
+
                   <label htmlFor="booking-transaction-reference">
                     Transaction reference
                   </label>
@@ -970,6 +1047,7 @@ function BookingPage() {
                     placeholder="Enter your transfer or deposit reference"
                     required
                   />
+
                   <label htmlFor="booking-payment-date">Payment date</label>
                   <input
                     id="booking-payment-date"
@@ -979,6 +1057,7 @@ function BookingPage() {
                     onChange={(event) => setPaymentDate(event.target.value)}
                     required
                   />
+
                   <label htmlFor="booking-payment-receipt">
                     Payment slip (JPG, PNG, WEBP, or PDF; max 5 MB)
                   </label>
@@ -993,6 +1072,7 @@ function BookingPage() {
                       setReceiptMessage("");
                     }}
                   />
+
                   <button
                     type="submit"
                     className="booking-summary-button"
@@ -1002,11 +1082,13 @@ function BookingPage() {
                       ? "Uploading receipt..."
                       : "Submit payment receipt"}
                   </button>
+
                   {receiptMessage && (
                     <p className="booking-payment-success" role="status">
                       {receiptMessage}
                     </p>
                   )}
+
                   {receiptError && (
                     <p className="booking-form-error" role="alert">
                       {receiptError}
@@ -1028,6 +1110,7 @@ function BookingPage() {
 
               <fieldset className="booking-payment-plan-options">
                 <legend>Choose your payment plan</legend>
+
                 <label>
                   <input
                     type="radio"
@@ -1041,6 +1124,7 @@ function BookingPage() {
                     <small>Pay the entire booking total now.</small>
                   </span>
                 </label>
+
                 <label>
                   <input
                     type="radio"
@@ -1054,6 +1138,7 @@ function BookingPage() {
                     <small>Pay 60% now and the remaining 40% later.</small>
                   </span>
                 </label>
+
                 <div className="booking-payment-plan-summary">
                   <p>
                     <span>Booking total</span>
@@ -1065,6 +1150,7 @@ function BookingPage() {
                       })}
                     </strong>
                   </p>
+
                   <p>
                     <span>Payment due initially</span>
                     <strong>
@@ -1078,6 +1164,7 @@ function BookingPage() {
                       })}
                     </strong>
                   </p>
+
                   <p>
                     <span>Remaining balance</span>
                     <strong>
@@ -1097,6 +1184,7 @@ function BookingPage() {
                   </p>
                 </div>
               </fieldset>
+
               <label>
                 Full name
                 <input
@@ -1113,6 +1201,7 @@ function BookingPage() {
                   }
                 />
               </label>
+
               <label>
                 Email address
                 <input
@@ -1129,6 +1218,7 @@ function BookingPage() {
                   }
                 />
               </label>
+
               <label>
                 Phone number
                 <input
@@ -1145,6 +1235,7 @@ function BookingPage() {
                   }
                 />
               </label>
+
               <label>
                 Adults
                 <input
@@ -1161,6 +1252,7 @@ function BookingPage() {
                   }
                 />
               </label>
+
               <label>
                 Children
                 <input
@@ -1177,6 +1269,7 @@ function BookingPage() {
                   }
                 />
               </label>
+
               <button
                 type="submit"
                 className="booking-summary-button"
