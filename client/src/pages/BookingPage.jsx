@@ -162,7 +162,6 @@ function BookingPage() {
   });
   const [receiptFile, setReceiptFile] = useState(null);
   const [paymentPlan, setPaymentPlan] = useState("full");
-  const [paymentMethod, setPaymentMethod] = useState("bank_transfer");
   const [transactionReference, setTransactionReference] = useState("");
   const [paymentDate, setPaymentDate] = useState(
     new Date().toISOString().slice(0, 10),
@@ -280,7 +279,7 @@ function BookingPage() {
 
       const formData = new FormData();
       formData.append("receipt", receiptFile);
-      formData.append("payment_method", paymentMethod);
+      formData.append("payment_method", "bank_transfer");
       formData.append("transaction_reference", transactionReference.trim());
       formData.append("payment_date", paymentDate);
 
@@ -953,17 +952,10 @@ function BookingPage() {
                       ).toLocaleString("en-PH", { minimumFractionDigits: 2 })}
                     </strong>
                   </p>
-                  <label htmlFor="booking-payment-method">Payment method</label>
-                  <select
-                    id="booking-payment-method"
-                    value={paymentMethod}
-                    onChange={(event) => setPaymentMethod(event.target.value)}
-                    required
-                  >
-                    <option value="bank_transfer">Bank transfer</option>
-                    <option value="cash_deposit">Cash deposit</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <div className="booking-payment-method">
+                    <label>Payment method</label>
+                    <p>Bank Transfer</p>
+                  </div>
                   <label htmlFor="booking-transaction-reference">
                     Transaction reference
                   </label>

@@ -25,6 +25,8 @@ app.use(helmet());
 // ======================================================
 
 const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:4173",
   "https://atalayaresort.online",
   "https://www.atalayaresort.online",
   process.env.CLIENT_URL,
