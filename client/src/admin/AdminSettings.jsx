@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_API_BASE_URL || "https://api.atalayaresort.online/api";
 
 const INITIAL_SETTINGS = {
   resort_name: "Atalaya Resort",

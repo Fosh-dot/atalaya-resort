@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Admin.css";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_API_BASE_URL || "https://api.atalayaresort.online/api";
 
 function formatStatus(status = "") {
   return status
@@ -94,56 +94,56 @@ function AdminPayments() {
   }, [adminToken, handleUnauthorized]);
 
   useEffect(() => {
-  const controller = new AbortController();
+    const controller = new AbortController();
 
-  async function loadPayments() {
-    if (!adminToken) {
-      handleUnauthorized();
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/admin/payments`, {
-        headers: {
-          Authorization: `Bearer ${adminToken}`,
-        },
-        signal: controller.signal,
-      });
-
-      const result = await response.json();
-
-      if (response.status === 401 || response.status === 403) {
+    async function loadPayments() {
+      if (!adminToken) {
         handleUnauthorized();
         return;
       }
 
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || "Unable to load payments.");
-      }
+      setLoading(true);
+      setError("");
 
-      setPayments(Array.isArray(result.data) ? result.data : []);
-    } catch (err) {
-      if (err.name === "AbortError") return;
+      try {
+        const response = await fetch(`${API_BASE_URL}/admin/payments`, {
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+          },
+          signal: controller.signal,
+        });
 
-      setError(
-        err.message === "Failed to fetch"
-          ? "Cannot connect to the server."
-          : err.message || "Unable to load payments."
-      );
-    } finally {
-      if (!controller.signal.aborted) {
-        setLoading(false);
+        const result = await response.json();
+
+        if (response.status === 401 || response.status === 403) {
+          handleUnauthorized();
+          return;
+        }
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || "Unable to load payments.");
+        }
+
+        setPayments(Array.isArray(result.data) ? result.data : []);
+      } catch (err) {
+        if (err.name === "AbortError") return;
+
+        setError(
+          err.message === "Failed to fetch"
+            ? "Cannot connect to the server."
+            : err.message || "Unable to load payments.",
+        );
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     }
-  }
 
-  loadPayments();
+    loadPayments();
 
-  return () => controller.abort();
-}, [adminToken, handleUnauthorized]);
+    return () => controller.abort();
+  }, [adminToken, handleUnauthorized]);
 
   const filteredPayments = payments.filter((payment) => {
     const matchesStatus =
