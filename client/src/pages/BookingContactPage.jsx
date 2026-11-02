@@ -126,8 +126,8 @@ const BookingContactPage = () => {
             </p>
 
             <p>
-              <strong>Phone:</strong>{" "}
-              <a href="tel:+639565667480">+63 9640954036</a>
+              <strong>Call:</strong>{" "}
+              <a href="tel:+639565667480">+63 932 1396258</a>
             </p>
 
             <p>

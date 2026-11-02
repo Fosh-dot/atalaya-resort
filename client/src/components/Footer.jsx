@@ -55,6 +55,7 @@ function Footer() {
             >
               +639640954036
             </a>
+            <p>Call: +639321396258 </p>
 
             <a href="mailto:reservations@atalaya.ph">
               atalayaresortelnido@outlook.com
